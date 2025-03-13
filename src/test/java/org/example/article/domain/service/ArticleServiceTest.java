@@ -2,23 +2,28 @@ package org.example.article.domain.service;
 
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.entity.Articles;
+import org.example.article.domain.exeption.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class ArticleServiceTest {
 
-    private final ArticleRepository articleRepository = new TestArticleRepository();
-    private final ArticleService articleService = new ArticleService(articleRepository);
+    private ArticleRepository articleRepository;
+    private ArticleService articleService;
 
     @BeforeEach
     void initRepository() {
-        Article before = new Article(1L, "title", "content");
-        articleRepository.save(before);
+        articleRepository = new TestArticleRepository();
+        articleRepository.save( new Article(1L, "title", "content"));
+
+        articleService = new ArticleService(articleRepository);
     }
 
     @Test
@@ -32,6 +37,14 @@ public class ArticleServiceTest {
         assertThat(article.id()).isEqualTo(id);
         assertThat(article.content()).isEqualTo(content);
         assertThat(article.title()).isEqualTo(title);
+    }
+
+    @Test
+    void 없는_게시글_조회시_예외() {
+        Long id = 2L;
+
+        assertThatThrownBy(() -> articleService.loadArticle(id))
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -52,34 +65,52 @@ public class ArticleServiceTest {
 
         articleService.update(id, title, content);
 
-        Article article = articleRepository.findById(1L);
+        Article article = articleRepository.findById(1L).get();
         assertThat(article.id()).isEqualTo(id);
         assertThat(article.title()).isEqualTo(title);
         assertThat(article.content()).isEqualTo(content);
     }
 
     @Test
-    void 게시글_목록삭제() {
+    void  없는_게시글정수시_예외() {
+        Long id = 2L;
+        String title = "수정";
+        String content = "수정되었습니다.";
+
+        assertThatThrownBy(() -> articleService.update(id, title, content))
+                .isInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    void 게시글삭제() {
         Long id = 2L;
         articleRepository.save(new Article(id, "title", "content"));
 
         articleService.delete(id);
 
-        Article article = articleRepository.findById(id);
-        assertThat(article).isNull();
+        Optional<Article> article = articleRepository.findById(id);
+        assertThat(article).isEmpty();
+    }
+
+    @Test
+    void 없는_게시글삭제시_예외() {
+        Long id = 2L;
+
+        assertThatThrownBy(()->articleService.delete(id))
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     private static final class TestArticleRepository implements ArticleRepository {
         private List<Article> articles = new ArrayList<>();
 
         @Override
-        public Article findById(Long id) {
+        public Optional<Article> findById(Long id) {
             for (Article article : articles) {
                 if(article.id().equals(id)) {
-                    return article;
+                    return Optional.of(article);
                 }
             }
-            return null;
+            return Optional.empty();
         }
 
         @Override
@@ -94,7 +125,17 @@ public class ArticleServiceTest {
 
         @Override
         public void deleteById(Long id) {
-            articles.remove(findById(id));
+            findById(id).ifPresent(articles::remove);
+        }
+
+        @Override
+        public boolean extractById(Long id) {
+            for (Article article : articles) {
+                if(article.id().equals(id)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
