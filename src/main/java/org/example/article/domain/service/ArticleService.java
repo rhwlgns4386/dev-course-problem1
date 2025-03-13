@@ -12,16 +12,16 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public Article loadArticle(Long id) {
+    public Article loadArticle(Long id) throws EntityNotFoundException {
         return findByIdOrElseThrow(id);
     }
 
-    public void update(Long id, String title, String content) {
+    public void update(Long id, String title, String content) throws EntityNotFoundException {
         Article article = findByIdOrElseThrow(id);
         article.update(title, content);
     }
 
-    private Article findByIdOrElseThrow(Long id) {
+    private Article findByIdOrElseThrow(Long id) throws EntityNotFoundException {
         return articleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Article not found"));
     }
 
@@ -29,7 +29,7 @@ public class ArticleService {
         return new Articles(articleRepository.findAll());
     }
 
-    public void delete(Long id) {
+    public void delete(Long id) throws EntityNotFoundException {
         if (!articleRepository.extractById(id)) throw new EntityNotFoundException("Article not found");
         articleRepository.deleteById(id);
     }
