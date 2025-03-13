@@ -2,14 +2,11 @@ package org.example.article.persistance;
 
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.service.ArticleRepository;
-import org.example.article.domain.service.ArticleService;
 import org.example.article.persistance.anotaion.Id;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 이 저장소는 인메모리에 저장하며 시스템을 재부팅시 데이터가 소실됩니다.
@@ -24,10 +21,11 @@ import java.util.Optional;
 public class InMemoryArticleRepository implements ArticleRepository {
 
     private final Map<Long, Article> storedArticles = new HashMap<>();
+    private final KeyGenerator keyGenerator = new KeyGenerator();
 
     @Override
     public Optional<Article> findById(Long id) {
-        return Optional.empty();
+        return Optional.ofNullable(storedArticles.get(id));
     }
 
     @Override
@@ -36,20 +34,20 @@ public class InMemoryArticleRepository implements ArticleRepository {
         storedArticles.put(id, article);
     }
 
-    private static Long setId(Article article) {
-        Class<? extends Article> aClass = article.getClass();
-        Field[] declaredFields = aClass.getDeclaredFields();
+    private Long setId(Article article) {
         try {
+            Class<? extends Article> aClass = article.getClass();
+            Field[] declaredFields = aClass.getDeclaredFields();
             Field field = findIdField(declaredFields);
             field.setAccessible(true);
-            field.set(article, KeyGenerator.next());
+            field.set(article, keyGenerator.next());
             return (Long) field.get(article);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static Field findIdField(Field[] declaredFields) {
+    private Field findIdField(Field[] declaredFields) {
         for (Field declaredField : declaredFields) {
             if (declaredField.isAnnotationPresent(Id.class)) {
                 return declaredField;
@@ -60,16 +58,16 @@ public class InMemoryArticleRepository implements ArticleRepository {
 
     @Override
     public List<Article> findAll() {
-        return List.of();
+        return new ArrayList<>(storedArticles.values());
     }
 
     @Override
     public void deleteById(Long id) {
-
+        storedArticles.remove(id);
     }
 
     @Override
     public boolean extractById(Long id) {
-        return false;
+        return storedArticles.containsKey(id);
     }
 }

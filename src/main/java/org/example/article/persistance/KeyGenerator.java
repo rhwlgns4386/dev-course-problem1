@@ -2,9 +2,9 @@ package org.example.article.persistance;
 
 public class KeyGenerator {
 
-    private static Long nextId = 1L;
+    private Long nextId = 1L;
 
-    public static Long next() {
+    public Long next() {
         return nextId++;
     }
 }
