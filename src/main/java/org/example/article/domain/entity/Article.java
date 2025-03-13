@@ -1,5 +1,7 @@
 package org.example.article.domain.entity;
 
+import java.util.Objects;
+
 public class Article {
 
     private Long id;
@@ -7,9 +9,24 @@ public class Article {
     private String content;
 
     public Article(Long id, String title, String content) {
+        validate(title,content);
         this.id = id;
         this.title = title;
         this.content = content;
+    }
+
+    private void validate(String title, String content) throws IllegalArgumentException {
+        try {
+            if(isEmpty(Objects.requireNonNull(title)) ||  isEmpty(Objects.requireNonNull(content))) {
+                throw new IllegalArgumentException("title or content must not be empty");
+            }
+        }catch (NullPointerException e) {
+            throw new IllegalArgumentException("title or content must not be null");
+        }
+    }
+
+    private boolean isEmpty(String value) {
+        return value.isBlank();
     }
 
     public Article(String title, String content) {

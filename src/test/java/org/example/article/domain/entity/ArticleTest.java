@@ -1,8 +1,13 @@
 package org.example.article.domain.entity;
 
+import org.example.article.domain.exeption.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class ArticleTest {
 
@@ -26,5 +31,11 @@ class ArticleTest {
 
         assertThat(article.title()).isEqualTo(title);
         assertThat(article.content()).isEqualTo(content);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"title,",",content"},delimiter = ',')
+    void 제목혹은_컨텐츠가_비어있다면_예외(String title, String content) {
+        assertThatIllegalArgumentException().isThrownBy(() -> new Article(title, content));
     }
 }
