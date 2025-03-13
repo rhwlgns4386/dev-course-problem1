@@ -2,9 +2,12 @@ package org.example.article.domain.service;
 
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.entity.Articles;
+import org.example.article.domain.exeption.EntityCreationException;
 import org.example.article.domain.exeption.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,12 @@ public class ArticleServiceTest {
         articleRepository.save( new Article(1L, "title", "content"));
 
         articleService = new ArticleService(articleRepository);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"title,",",content"},delimiter = ',')
+    void 저장시_제목혹은_컨텐츠가_비어있다면_예외(String title, String content){
+        assertThatThrownBy(()->articleService.save(title,content)).isInstanceOf(EntityCreationException.class);
     }
 
     @Test
