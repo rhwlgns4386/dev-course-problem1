@@ -1,6 +1,8 @@
 package org.example.article;
 
 import org.example.ApplicationTest;
+import org.example.dispatcher.ArticleApplication;
+import org.example.article.cli.CommandRequestHandlerFactory;
 import org.example.article.cli.runner.ApplicationStateHolder;
 import org.example.article.cli.config.DefaultCommandConfig;
 import org.example.article.domain.entity.Article;
@@ -20,9 +22,10 @@ public class ArticleApplicationTest extends ApplicationTest {
     private final static ArticleRepository articleRepository = new InMemoryArticleRepository();
 
     @BeforeAll
-    public static void initConfig(){
-        ArticleApplication.init(new TestConfig());
+    public static void initConfig() {
+        CommandRequestHandlerFactory.init(new TestConfig());
     }
+
 
     @Override
     @BeforeEach

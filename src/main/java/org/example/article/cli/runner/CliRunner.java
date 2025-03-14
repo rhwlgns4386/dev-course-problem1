@@ -1,9 +1,10 @@
 package org.example.article.cli.runner;
 
-import org.example.article.cli.DispatchController;
+import org.example.dispatcher.ApplicationRunner;
+import org.example.dispatcher.DispatchController;
 import org.example.article.cli.view.InputView;
 
-public class CliRunner implements org.example.article.ApplicationRunner {
+public class CliRunner implements ApplicationRunner {
 
     private final DispatchController dispatchController;
 

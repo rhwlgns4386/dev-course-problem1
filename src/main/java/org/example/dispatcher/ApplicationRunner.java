@@ -1,4 +1,4 @@
-package org.example.article;
+package org.example.dispatcher;
 
 public interface ApplicationRunner {
 
