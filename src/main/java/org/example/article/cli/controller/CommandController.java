@@ -1,10 +1,12 @@
 package org.example.article.cli.controller;
 
+import org.example.article.cli.dto.request.IdDto;
 import org.example.article.cli.dto.request.WriteDto;
 import org.example.article.cli.exception.WriteException;
 import org.example.article.cli.runner.ApplicationStateHolder;
 import org.example.article.cli.view.InputView;
 import org.example.article.cli.view.OutputView;
+import org.example.article.domain.entity.Article;
 import org.example.article.domain.exeption.EntityCreationException;
 import org.example.article.domain.service.ArticleService;
 
@@ -32,5 +34,11 @@ public class CommandController {
         }catch (EntityCreationException e){
             throw new WriteException("게시글은 제목과 내용이 필수 입니다.",e);
         }
+    }
+
+    public void lookup(){
+        IdDto id = InputView.readId();
+        Article article = articleService.loadArticle(id.toLong());
+        OutputView.render(article);
     }
 }

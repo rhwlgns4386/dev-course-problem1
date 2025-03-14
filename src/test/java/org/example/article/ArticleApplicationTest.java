@@ -101,6 +101,28 @@ public class ArticleApplicationTest extends ApplicationTest {
         );
     }
 
+    @Test
+    void 게시글_조회() {
+        Article article1 = new Article("제목1", "내용1");
+        Article article2 = new Article("제목2", "내용2");
+        articleRepository.save(article1);
+        articleRepository.save(article2);
+
+        run(() -> {
+            in("조회","1번","조회","2번","종료");
+            ArticleApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "1번 게시글",
+                "제목 : 제목1",
+                "내용 : 내용1",
+                "2번 게시글",
+                "제목 : 제목2",
+                "내용 : 내용2"
+        );
+    }
+
     private static class TestConfig extends DefaultCommandConfig {
         @Override
         public ArticleRepository articleRepository() {

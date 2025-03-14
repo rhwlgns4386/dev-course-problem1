@@ -33,6 +33,7 @@ public class CommandRequestHandlerAdapter implements RequestHandler {
                 case EXIT -> commandController.exit();
                 case WRITE -> commandController.write();
                 case ALL ->  commandController.all();
+                case LOOKUP -> commandController.lookup();
             }
         }catch (Exception e) {
             handleException(e);

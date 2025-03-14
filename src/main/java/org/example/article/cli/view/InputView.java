@@ -1,5 +1,6 @@
 package org.example.article.cli.view;
 
+import org.example.article.cli.dto.request.IdDto;
 import org.example.article.cli.dto.request.WriteDto;
 import org.example.input.CliInput;
 
@@ -21,5 +22,11 @@ public class InputView {
         System.out.println("내용을 입력해주세요.");
         String contend = CliInput.readLine();
         return new WriteDto(title, contend);
+    }
+
+    public static IdDto readId(){
+        System.out.print("어떤 게시물을 조회할까요? ");
+        String id = CliInput.readLine();
+        return new IdDto(id);
     }
 }

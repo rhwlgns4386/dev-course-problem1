@@ -15,9 +15,13 @@ public final class OutputView {
         System.out.printf("총 게시글은 %s개 작성되어있습니다.\n\n",articles.size());
 
         for(Article article : articles.articles()){
-            System.out.printf("%s번 게시글\n",article.id());
-            System.out.printf("제목 : %s\n",article.title());
-            System.out.printf("내용 : %s\n",article.content());
+           render(article);
         }
+    }
+
+    public static void render(Article article) {
+        System.out.printf("%s번 게시글\n",article.id());
+        System.out.printf("제목 : %s\n",article.title());
+        System.out.printf("내용 : %s\n",article.content());
     }
 }
