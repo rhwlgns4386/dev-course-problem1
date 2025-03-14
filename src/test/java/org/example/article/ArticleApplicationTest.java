@@ -1,7 +1,7 @@
 package org.example.article;
 
 import org.example.ApplicationTest;
-import org.example.article.cli.ApplicationStateHolder;
+import org.example.article.cli.runner.ApplicationStateHolder;
 import org.example.article.cli.config.DefaultCommandConfig;
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.service.ArticleRepository;

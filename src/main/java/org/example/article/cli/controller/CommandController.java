@@ -1,7 +1,6 @@
 package org.example.article.cli.controller;
 
-import org.example.article.cli.ApplicationStateHolder;
-import org.example.article.cli.command.Command;
+import org.example.article.cli.runner.ApplicationStateHolder;
 import org.example.article.cli.view.OutputView;
 import org.example.article.domain.service.ArticleService;
 

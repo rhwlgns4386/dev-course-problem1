@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.article.cli.ApplicationStateHolder;
 import org.example.input.CliInput;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
