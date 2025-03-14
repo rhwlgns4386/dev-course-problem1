@@ -1,7 +1,7 @@
 package org.example.article.cli.dto.request;
 
 public class IdDto {
-    private String id;
+    private final String id;
 
     public IdDto(String id) {
         this.id = id;

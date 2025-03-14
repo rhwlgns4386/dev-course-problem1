@@ -6,7 +6,6 @@ import org.example.dispatcher.RequestHandler;
 import org.example.article.cli.command.Command;
 import org.example.article.cli.controller.CommandController;
 import org.example.article.cli.controller.ExceptionHandler;
-import org.example.article.cli.exception.WriteException;
 import org.example.dispatcher.dto.Request;
 
 public class CommandRequestHandlerAdapter implements RequestHandler {
