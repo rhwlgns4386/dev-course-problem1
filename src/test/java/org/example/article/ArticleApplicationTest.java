@@ -65,6 +65,25 @@ public class ArticleApplicationTest extends ApplicationTest {
         );
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"작성","write","WRITE"})
+    void 게시글_작성(String command) {
+        String title = "제목1";
+        String content = "내용1";
+
+        run(() -> {
+            in(command,title,content,"목록","종료");
+            ArticleApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "총 게시글은 1개 작성되어있습니다."
+                ,"1번 게시글"
+                , "제목 : 제목1"
+                , "내용 : 내용1"
+        );
+    }
+
     private static class TestConfig extends DefaultCommandConfig {
         @Override
         public ArticleRepository articleRepository() {

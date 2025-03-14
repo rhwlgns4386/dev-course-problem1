@@ -24,5 +24,8 @@ public class DispatchController {
         if(command.equals(Command.ALL)){
             commandController.all();
         }
+        if(command.equals(Command.WRITE)){
+            commandController.write();
+        }
     }
 }

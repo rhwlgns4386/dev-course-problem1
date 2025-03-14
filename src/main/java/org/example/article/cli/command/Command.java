@@ -4,7 +4,8 @@ import java.util.Optional;
 
 public enum Command {
     EXIT("종료"),
-    ALL("목록");
+    ALL("목록"),
+    WRITE("작성");
 
 
     private final String krCommand;
