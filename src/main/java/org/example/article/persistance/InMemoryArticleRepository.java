@@ -53,4 +53,9 @@ public class InMemoryArticleRepository implements ArticleRepository {
     public boolean extractById(Long id) {
         return storedArticles.containsKey(id);
     }
+
+    @Override
+    public void clear() {
+        this.storedArticles.clear();
+    }
 }

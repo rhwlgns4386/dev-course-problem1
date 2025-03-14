@@ -146,5 +146,10 @@ public class ArticleServiceTest {
             }
             return false;
         }
+
+        @Override
+        public void clear() {
+
+        }
     }
 }

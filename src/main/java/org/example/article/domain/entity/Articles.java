@@ -14,6 +14,10 @@ public class Articles {
         return articles.size();
     }
 
+    public List<Article> articles() {
+        return articles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

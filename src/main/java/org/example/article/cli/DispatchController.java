@@ -21,5 +21,8 @@ public class DispatchController {
         if(command.equals(Command.EXIT)){
             commandController.exit();
         }
+        if(command.equals(Command.ALL)){
+            commandController.all();
+        }
     }
 }

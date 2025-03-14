@@ -35,7 +35,10 @@ public class ApplicationTest {
     }
 
     protected void run(Runnable runnable){
-        runnable.run();
-        CliInput.close();
+        try {
+            runnable.run();
+        }finally {
+            CliInput.close();
+        }
     }
 }

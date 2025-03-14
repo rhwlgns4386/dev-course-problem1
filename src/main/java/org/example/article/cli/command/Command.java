@@ -3,7 +3,9 @@ package org.example.article.cli.command;
 import java.util.Optional;
 
 public enum Command {
-    EXIT("종료");
+    EXIT("종료"),
+    ALL("목록");
+
 
     private final String krCommand;
     Command(String krCommand) {

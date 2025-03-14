@@ -15,4 +15,6 @@ public interface ArticleRepository {
     void deleteById(Long id);
 
     boolean extractById(Long id);
+
+    void clear();
 }
