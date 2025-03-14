@@ -138,6 +138,23 @@ public class ArticleApplicationTest extends ApplicationTest {
         );
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"삭제","delete","DELETE"})
+    void 없는_게시글_삭제(String command) {
+        Article article1 = new Article("제목1", "내용1");
+        articleRepository.save(article1);
+
+        run(() -> {
+            in(command,"1번","종료");
+            ArticleApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "어떤 게시물을 삭제할까요?",
+                "1번 게시물이 성공적으로 삭제되었습니다!"
+        );
+    }
+
     private static class TestConfig extends DefaultCommandConfig {
         @Override
         public ArticleRepository articleRepository() {

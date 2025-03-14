@@ -24,4 +24,8 @@ public final class OutputView {
         System.out.printf("제목 : %s\n",article.title());
         System.out.printf("내용 : %s\n",article.content());
     }
+
+    public static void renderDeleted(Long id) {
+        System.out.printf("%s번 게시물이 성공적으로 삭제되었습니다!\n",id);
+    }
 }

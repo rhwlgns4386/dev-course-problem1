@@ -47,4 +47,14 @@ public class CommandController {
             throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
         }
     }
+
+    public void delete() {
+        IdDto id = InputView.readDeleteId();
+        try {
+            articleService.delete(id.toLong());
+            OutputView.renderDeleted(id.toLong());
+        }catch (EntityNotFoundException e){
+            throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
+        }
+    }
 }

@@ -29,4 +29,10 @@ public class InputView {
         String id = CliInput.readLine();
         return new IdDto(id);
     }
+
+    public static IdDto readDeleteId(){
+        System.out.print("어떤 게시물을 삭제할까요? ");
+        String id = CliInput.readLine();
+        return new IdDto(id);
+    }
 }

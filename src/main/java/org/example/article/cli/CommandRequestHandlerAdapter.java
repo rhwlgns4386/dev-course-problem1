@@ -35,6 +35,7 @@ public class CommandRequestHandlerAdapter implements RequestHandler {
                 case WRITE -> commandController.write();
                 case ALL ->  commandController.all();
                 case LOOKUP -> commandController.lookup();
+                case DELETE -> commandController.delete();
             }
         }catch (Exception e) {
             handleException(e);
