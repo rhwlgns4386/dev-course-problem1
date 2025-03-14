@@ -8,6 +8,7 @@ import org.example.article.domain.service.ArticleRepository;
 import org.example.article.persistance.InMemoryArticleRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -81,6 +82,19 @@ public class ArticleApplicationTest extends ApplicationTest {
                 ,"1번 게시글"
                 , "제목 : 제목1"
                 , "내용 : 내용1"
+        );
+    }
+
+    @Test
+    void 게시글_작성() {
+
+        run(() -> {
+            in("작성","","","종료");
+            ArticleApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "게시글은 제목과 내용이 필수 입니다."
         );
     }
 
