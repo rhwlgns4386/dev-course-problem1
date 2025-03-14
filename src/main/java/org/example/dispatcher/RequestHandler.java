@@ -1,7 +1,9 @@
 package org.example.dispatcher;
 
-public interface RequestHandler {
-    boolean support(String request);
+import org.example.dispatcher.dto.Request;
 
-    void run(String commandInput);
+public interface RequestHandler {
+    boolean support(Request request);
+
+    void run(Request commandInput);
 }

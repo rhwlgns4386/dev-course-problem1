@@ -1,13 +1,17 @@
 package org.example.article.cli.controller;
 
+import org.example.article.cli.exception.CommandNotFoundException;
 import org.example.article.cli.exception.WriteException;
 import org.example.article.cli.view.ErrorView;
 
 public class ExceptionHandler {
 
     public void handeWriteException(WriteException writeException){
-        writeException.printStackTrace();
         ErrorView.renderError(writeException.getMessage());
+    }
+
+    public void handleCommandNotFoundException(CommandNotFoundException commandNotFoundException){
+        ErrorView.renderError(commandNotFoundException.getMessage());
     }
 
     public void handleRuntimeException(RuntimeException runtimeException){

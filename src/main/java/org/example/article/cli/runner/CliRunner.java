@@ -3,6 +3,7 @@ package org.example.article.cli.runner;
 import org.example.dispatcher.ApplicationRunner;
 import org.example.dispatcher.DispatchController;
 import org.example.article.cli.view.InputView;
+import org.example.dispatcher.dto.Request;
 
 public class CliRunner implements ApplicationRunner {
 
@@ -14,7 +15,7 @@ public class CliRunner implements ApplicationRunner {
 
     public void run(){
         while (ApplicationStateHolder.isRun()) {
-            dispatchController.dispatch(InputView.readCommand());
+            dispatchController.dispatch(new Request("command",InputView.readCommand()));
         }
     }
 }
