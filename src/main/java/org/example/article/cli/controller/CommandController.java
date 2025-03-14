@@ -57,4 +57,15 @@ public class CommandController {
             throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
         }
     }
+
+    public void update() {
+        IdDto id = InputView.readUpdateId();
+        WriteDto article = InputView.readUpdate(id.toLong());
+        try {
+            articleService.update(id.toLong(), article.title(), article.content());
+            OutputView.renderUpdate(id.toLong());
+        }catch (EntityNotFoundException e){
+            throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
+        }
+    }
 }

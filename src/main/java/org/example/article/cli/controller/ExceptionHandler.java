@@ -6,8 +6,8 @@ import org.example.article.cli.view.ErrorView;
 
 public class ExceptionHandler {
 
-    public void handlePresentationException(PresentationException writeException){
-        ErrorView.renderError(writeException.getMessage());
+    public void handlePresentationException(PresentationException e){
+        ErrorView.renderError(e.getMessage());
     }
 
 //    public void handleCommandNotFoundException(CommandNotFoundException commandNotFoundException){

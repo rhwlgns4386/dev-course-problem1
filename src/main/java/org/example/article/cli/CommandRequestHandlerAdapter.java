@@ -36,6 +36,7 @@ public class CommandRequestHandlerAdapter implements RequestHandler {
                 case ALL ->  commandController.all();
                 case LOOKUP -> commandController.lookup();
                 case DELETE -> commandController.delete();
+                case UPDATE -> commandController.update();
             }
         }catch (Exception e) {
             handleException(e);
@@ -45,8 +46,10 @@ public class CommandRequestHandlerAdapter implements RequestHandler {
     private void handleException(Exception e) {
         if(e instanceof PresentationException){
             exceptionHandler.handlePresentationException((PresentationException) e);
+            return;
         } else if(e instanceof RuntimeException){
             exceptionHandler.handleRuntimeException((RuntimeException) e);
+            return;
         }
         throw new RuntimeException(e);
     }

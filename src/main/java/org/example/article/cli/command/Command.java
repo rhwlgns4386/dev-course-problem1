@@ -7,7 +7,8 @@ public enum Command {
     ALL("목록"),
     WRITE("작성"),
     LOOKUP("조회"),
-    DELETE("삭제");
+    DELETE("삭제"),
+    UPDATE("수정");
 
 
     private final String krCommand;
