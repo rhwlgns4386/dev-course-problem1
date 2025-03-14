@@ -2,12 +2,14 @@ package org.example.article.cli.controller;
 
 import org.example.article.cli.dto.request.IdDto;
 import org.example.article.cli.dto.request.WriteDto;
+import org.example.article.cli.exception.ArticleNotFoundException;
 import org.example.article.cli.exception.WriteException;
 import org.example.article.cli.runner.ApplicationStateHolder;
 import org.example.article.cli.view.InputView;
 import org.example.article.cli.view.OutputView;
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.exeption.EntityCreationException;
+import org.example.article.domain.exeption.EntityNotFoundException;
 import org.example.article.domain.service.ArticleService;
 
 public class CommandController {
@@ -38,7 +40,11 @@ public class CommandController {
 
     public void lookup(){
         IdDto id = InputView.readId();
-        Article article = articleService.loadArticle(id.toLong());
-        OutputView.render(article);
+        try {
+            Article article = articleService.loadArticle(id.toLong());
+            OutputView.render(article);
+        }catch (EntityNotFoundException e){
+            throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
+        }
     }
 }

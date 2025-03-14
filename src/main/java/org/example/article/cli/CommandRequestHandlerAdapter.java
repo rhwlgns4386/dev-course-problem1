@@ -1,6 +1,7 @@
 package org.example.article.cli;
 
 import org.example.article.cli.exception.CommandNotFoundException;
+import org.example.article.cli.exception.PresentationException;
 import org.example.dispatcher.RequestHandler;
 import org.example.article.cli.command.Command;
 import org.example.article.cli.controller.CommandController;
@@ -41,11 +42,9 @@ public class CommandRequestHandlerAdapter implements RequestHandler {
     }
 
     private void handleException(Exception e) {
-        if(e instanceof WriteException){
-            exceptionHandler.handeWriteException((WriteException) e);
-        } else if(e instanceof CommandNotFoundException){
-            exceptionHandler.handleCommandNotFoundException((CommandNotFoundException) e);
-        }else if(e instanceof RuntimeException){
+        if(e instanceof PresentationException){
+            exceptionHandler.handlePresentationException((PresentationException) e);
+        } else if(e instanceof RuntimeException){
             exceptionHandler.handleRuntimeException((RuntimeException) e);
         }
         throw new RuntimeException(e);

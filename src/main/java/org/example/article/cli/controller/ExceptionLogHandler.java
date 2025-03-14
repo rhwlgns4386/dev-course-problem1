@@ -1,20 +1,15 @@
 package org.example.article.cli.controller;
 
 import org.example.article.cli.exception.CommandNotFoundException;
+import org.example.article.cli.exception.PresentationException;
 import org.example.article.cli.exception.WriteException;
 
 public class ExceptionLogHandler extends ExceptionHandler{
 
     @Override
-    public void handeWriteException(WriteException e) {
+    public void handlePresentationException(PresentationException e) {
         e.printStackTrace();
-        super.handeWriteException(e);
-    }
-
-    @Override
-    public void handleCommandNotFoundException(CommandNotFoundException e) {
-        e.printStackTrace();
-        super.handleCommandNotFoundException(e);
+        super.handlePresentationException(e);
     }
 
     @Override

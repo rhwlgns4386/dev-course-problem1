@@ -89,7 +89,7 @@ public class ArticleApplicationTest extends ApplicationTest {
     }
 
     @Test
-    void 게시글_작성() {
+    void 게시글_작성_예외() {
 
         run(() -> {
             in("작성","","","종료");
@@ -120,6 +120,21 @@ public class ArticleApplicationTest extends ApplicationTest {
                 "2번 게시글",
                 "제목 : 제목2",
                 "내용 : 내용2"
+        );
+    }
+
+    @Test
+    void 없는_게시글_조회_시_예외() {
+        Article article1 = new Article("제목1", "내용1");
+        articleRepository.save(article1);
+
+        run(() -> {
+            in("조회","2번","종료");
+            ArticleApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "2번 게시글은 존재하지 않습니다"
         );
     }
 
