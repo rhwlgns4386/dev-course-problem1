@@ -2,10 +2,12 @@ package org.example.article.persistance;
 
 public final class LongIdGenerator {
 
+    private static final long DEFAULT_VALUE = 1L;
+
     LongIdGenerator() {
     }
 
-    private Long nextId = 1L;
+    private Long nextId = DEFAULT_VALUE;
 
     Long next() {
         return nextId++;
@@ -13,5 +15,9 @@ public final class LongIdGenerator {
 
     void rollback(){
         nextId--;
+    }
+
+    public void clear() {
+        nextId = DEFAULT_VALUE;
     }
 }

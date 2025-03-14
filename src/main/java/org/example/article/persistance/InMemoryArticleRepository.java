@@ -57,5 +57,6 @@ public class InMemoryArticleRepository implements ArticleRepository {
     @Override
     public void clear() {
         this.storedArticles.clear();
+        this.idGenerator.clear();
     }
 }
