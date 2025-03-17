@@ -1,14 +1,54 @@
 package org.example.article.cli.command;
 
+import org.example.article.cli.controller.CommandController;
+import org.example.article.cli.dto.request.ArticleInfoDto;
+import org.example.article.cli.dto.request.IdDto;
+
 import java.util.Optional;
 
 public enum Command {
-    EXIT("종료"),
-    ALL("목록"),
-    WRITE("작성"),
-    LOOKUP("조회"),
-    DELETE("삭제"),
-    UPDATE("수정");
+    EXIT("종료") {
+        @Override
+        public void execute(CommandController controller) {
+            controller.exit();
+        }
+    },
+    ALL("목록") {
+        @Override
+        public void execute(CommandController commandController) {
+            commandController.all();
+        }
+    },
+    WRITE("작성") {
+        @Override
+        public void execute(CommandController commandController) {
+            commandController.write(commandController.readInfo());
+        }
+    },
+    LOOKUP("조회") {
+        @Override
+        public void execute(CommandController commandController) {
+            String id = commandController.readLookUpId();
+            commandController.lookup(new IdDto(id));
+        }
+    },
+    DELETE("삭제") {
+        @Override
+        public void execute(CommandController commandController) {
+            String id = commandController.readDeleteId();
+            commandController.delete(new IdDto(id));
+        }
+    },
+    UPDATE("수정") {
+        @Override
+        public void execute(CommandController commandController) {
+            String id = commandController.readUpdateId();
+            IdDto idDto = new IdDto(id);
+            commandController.containId(idDto);
+            ArticleInfoDto articleInfoDto = commandController.readUpdateInfo(idDto);
+            commandController.update(idDto, articleInfoDto);
+        }
+    };
 
 
     private final String krCommand;
@@ -24,4 +64,6 @@ public enum Command {
         }
         return Optional.empty();
     }
+
+    public abstract void execute(CommandController commandController);
 }

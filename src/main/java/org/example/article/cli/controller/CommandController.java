@@ -1,7 +1,7 @@
 package org.example.article.cli.controller;
 
 import org.example.article.cli.dto.request.IdDto;
-import org.example.article.cli.dto.request.WriteDto;
+import org.example.article.cli.dto.request.ArticleInfoDto;
 import org.example.article.cli.exception.ArticleNotFoundException;
 import org.example.article.cli.exception.WriteException;
 import org.example.article.cli.runner.ApplicationStateHolder;
@@ -29,17 +29,23 @@ public class CommandController {
         OutputView.renderList(articleService.loadAll());
     }
 
-    public void write(){
-        WriteDto writeDto = InputView.readWriteDto();
+    public ArticleInfoDto readInfo(){
+        return InputView.readArticleInfo();
+    }
+
+    public void write(ArticleInfoDto articleInfoDto){
         try {
-            articleService.save(writeDto.title(), writeDto.content());
+            articleService.save(articleInfoDto.title(), articleInfoDto.content());
         }catch (EntityCreationException e){
             throw new WriteException("게시글은 제목과 내용이 필수 입니다.",e);
         }
     }
 
-    public void lookup(){
-        IdDto id = InputView.readId();
+    public String readLookUpId(){
+        return InputView.readId("조회");
+    }
+
+    public void lookup(IdDto id){
         try {
             Article article = articleService.loadArticle(id.toLong());
             OutputView.render(article);
@@ -48,8 +54,11 @@ public class CommandController {
         }
     }
 
-    public void delete() {
-        IdDto id = InputView.readDeleteId();
+    public String readDeleteId(){
+        return InputView.readId("삭제");
+    }
+
+    public void delete(IdDto id) {
         try {
             articleService.delete(id.toLong());
             OutputView.renderDeleted(id.toLong());
@@ -58,9 +67,23 @@ public class CommandController {
         }
     }
 
-    public void update() {
-        IdDto id = InputView.readUpdateId();
-        WriteDto article = InputView.readUpdate(id.toLong());
+    public String readUpdateId(){
+        return InputView.readId("수정");
+    }
+
+    public ArticleInfoDto readUpdateInfo(IdDto id){
+        return InputView.readUpdateInfo(id.toLong());
+    }
+
+    public void containId(IdDto id) {
+        try {
+            articleService.validateContainsId(id.toLong());
+        }catch (EntityNotFoundException e){
+            throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
+        }
+    }
+
+    public void update(IdDto id, ArticleInfoDto article) {
         try {
             articleService.update(id.toLong(), article.title(), article.content());
             OutputView.renderUpdate(id.toLong());

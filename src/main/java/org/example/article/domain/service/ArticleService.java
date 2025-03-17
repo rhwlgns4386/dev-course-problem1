@@ -35,8 +35,12 @@ public class ArticleService {
     }
 
     public void delete(Long id) throws EntityNotFoundException {
-        if (!articleRepository.extractById(id)) throw entityNotFoundException();
+        validateContainsId(id);
         articleRepository.deleteById(id);
+    }
+
+    public void validateContainsId(Long id) {
+        if (!articleRepository.extractById(id)) throw entityNotFoundException();
     }
 
     private Article findByIdOrElseThrow(Long id) throws EntityNotFoundException {

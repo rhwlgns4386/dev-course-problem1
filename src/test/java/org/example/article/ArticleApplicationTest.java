@@ -173,7 +173,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"수정","update","UPDATE"})
-    void 없는_게시글_수정(String command) {
+    void 게시글_수정(String command) {
         Article article1 = new Article("제목1", "내용1");
         articleRepository.save(article1);
 
@@ -188,6 +188,20 @@ public class ArticleApplicationTest extends ApplicationTest {
                 "제목 : ",
                 "내용 : ",
                 "1번 게시물이 성공적으로 수정되었습니다!"
+        );
+    }
+
+    @Test
+    void 없는_게시글_수정() {
+
+        run(() -> {
+            in("수정","1번","종료");
+            ArticleApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "어떤 게시물을 수정할까요?",
+                "1번 게시글은 존재하지 않습니다"
         );
     }
 

@@ -29,14 +29,7 @@ public class CommandRequestHandlerAdapter implements RequestHandler {
     public void run(Request request) {
         try {
             Command command = Command.findByName(request.command()).orElseThrow(()->new CommandNotFoundException("존재하지 않는 명령어 입니다."));
-            switch (command) {
-                case EXIT -> commandController.exit();
-                case WRITE -> commandController.write();
-                case ALL ->  commandController.all();
-                case LOOKUP -> commandController.lookup();
-                case DELETE -> commandController.delete();
-                case UPDATE -> commandController.update();
-            }
+            command.execute(commandController);
         }catch (Exception e) {
             handleException(e);
         }
