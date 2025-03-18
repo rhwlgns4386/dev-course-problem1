@@ -9,9 +9,12 @@ import org.example.dispatcher.HandlerMapperFactory;
 
 public class ArticleApplication {
 
-
     public static void main(String[] args) {
         HandlerMapper handlerMapper = HandlerMapperFactory.handlerMapper(CommandRequestHandlerFactory.create());
+        run(handlerMapper);
+    }
+
+    private static void run(HandlerMapper handlerMapper) {
         DispatchController dispatchController = new DispatchController(handlerMapper);
         ApplicationRunner applicationRunner = new CliRunner(dispatchController);
         applicationRunner.run();
