@@ -16,21 +16,21 @@ public class BoardService {
         boardRepository.save(new Board(title));
     }
 
-    public void update(Long id, Title title) {
+    public void update(Long id, Title title) throws EntityNotFoundException {
         Board board = boardRepository.findById(id).orElseThrow(BoardService::entityNotFoundException);
         board.update(title);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id) throws EntityNotFoundException {
         validateContainsId(id);
         boardRepository.deleteById(id);
     }
 
-    public Board load(Long id) {
+    public Board load(Long id) throws EntityNotFoundException{
         return boardRepository.findById(id).orElseThrow(BoardService::entityNotFoundException);
     }
 
-    public void validateContainsId(Long id) {
+    public void validateContainsId(Long id) throws EntityNotFoundException{
         if(!boardRepository.extractById(id)){
             throw entityNotFoundException();
         }

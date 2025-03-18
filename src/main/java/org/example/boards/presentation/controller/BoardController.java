@@ -1,10 +1,9 @@
 package org.example.boards.presentation.controller;
 
 import org.example.article.domain.exeption.EntityNotFoundException;
-import org.example.article.presentation.dto.request.IdDto;
-import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.entity.Title;
 import org.example.boards.domain.service.BoardService;
+import org.example.boards.presentation.exception.BoardNotFoundException;
 import org.example.boards.presentation.view.InputView;
 import org.example.boards.presentation.view.OutputView;
 
@@ -25,18 +24,38 @@ public class BoardController {
     }
 
     public void containId(Long id) {
-        boardService.validateContainsId(id);
+        try {
+            boardService.validateContainsId(id);
+        }catch (EntityNotFoundException e){
+            boardNotFoundException(id, e);
+        }
     }
 
     public void edit(Long id, String title) {
-        boardService.update(id, new Title(title));
+        try {
+            boardService.update(id, new Title(title));
+        }catch (EntityNotFoundException e){
+            boardNotFoundException(id, e);
+        }
     }
 
     public void remove(Long id) {
-        boardService.delete(id);
+        try {
+            boardService.delete(id);
+        } catch (EntityNotFoundException e) {
+            boardNotFoundException(id, e);
+        }
     }
 
     public void load(Long id) {
-        OutputView.renderBoard(boardService.load(id));
+        try {
+            OutputView.renderBoard(boardService.load(id));
+        }catch (EntityNotFoundException e){
+            boardNotFoundException(id, e);
+        }
+    }
+
+    private static void boardNotFoundException(Long id, EntityNotFoundException e) {
+        throw new BoardNotFoundException(String.format("%s번 게시판은 존재하지 않습니다.", id), e);
     }
 }

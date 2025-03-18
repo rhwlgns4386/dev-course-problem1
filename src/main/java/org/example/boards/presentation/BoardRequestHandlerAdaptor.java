@@ -1,13 +1,11 @@
 package org.example.boards.presentation;
 
 import org.example.boards.presentation.controller.BoardController;
-import org.example.dispatcher.RequestHandler;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.UriRequest;
 import org.example.global.BaseRequestHandler;
 import org.example.global.exception.CommandNotFoundException;
 import org.example.global.exception.ExceptionHandler;
-import org.example.global.exception.PresentationException;
 
 public class BoardRequestHandlerAdaptor extends BaseRequestHandler {
 

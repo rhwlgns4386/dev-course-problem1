@@ -2,8 +2,6 @@ package org.example.article.presentation;
 
 import org.example.global.BaseRequestHandler;
 import org.example.global.exception.CommandNotFoundException;
-import org.example.global.exception.PresentationException;
-import org.example.dispatcher.RequestHandler;
 import org.example.article.presentation.command.Command;
 import org.example.article.presentation.controller.CommandController;
 import org.example.global.exception.ExceptionHandler;

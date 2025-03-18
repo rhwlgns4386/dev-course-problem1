@@ -95,6 +95,15 @@ public class BoardApplicationTest extends ApplicationTest {
         assertThat(out()).contains("파라미터가 잘못 되었습니다.");
     }
 
+    @Test
+    void 없는_데이터_조회(){
+        run(()->{
+            in("/boards/view?boardName=1","exit");
+            CliApplication.main(new String[]{});
+        });
+        assertThat(out()).contains("1번 게시판은 존재하지 않습니다.");
+    }
+
     private static class TestConfig extends BoardConfig {
 
         @Override

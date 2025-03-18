@@ -2,7 +2,6 @@ package org.example.boards.presentation;
 
 import org.example.boards.presentation.controller.BoardController;
 import org.example.dispatcher.dto.UriRequest;
-import org.example.global.exception.CommandNotFoundException;
 import org.example.global.exception.InvalidParamException;
 
 import java.util.Arrays;

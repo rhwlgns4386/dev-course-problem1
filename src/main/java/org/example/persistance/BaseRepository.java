@@ -1,7 +1,5 @@
 package org.example.persistance;
 
-import org.example.article.domain.entity.Article;
-
 import java.util.List;
 import java.util.Optional;
 

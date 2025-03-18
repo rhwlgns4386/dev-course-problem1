@@ -1,6 +1,5 @@
 package org.example.persistance;
 
-import org.example.article.domain.entity.Article;
 import org.example.article.persistance.exception.IdFieldNotFoundException;
 
 import java.util.*;
