@@ -1,6 +1,6 @@
-package org.example.article.cli.config;
+package org.example.article.presentation.config;
 
-import org.example.article.cli.controller.CommandController;
+import org.example.article.presentation.controller.CommandController;
 import org.example.article.domain.service.ArticleRepository;
 import org.example.article.domain.service.ArticleService;
 import org.example.article.persistance.InMemoryArticleRepository;

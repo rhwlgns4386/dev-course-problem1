@@ -1,11 +1,11 @@
-package org.example.article.cli;
+package org.example.article.presentation;
 
-import org.example.article.cli.exception.CommandNotFoundException;
-import org.example.article.cli.exception.PresentationException;
+import org.example.article.presentation.exception.CommandNotFoundException;
+import org.example.article.presentation.exception.PresentationException;
 import org.example.dispatcher.RequestHandler;
-import org.example.article.cli.command.Command;
-import org.example.article.cli.controller.CommandController;
-import org.example.article.cli.controller.ExceptionHandler;
+import org.example.article.presentation.command.Command;
+import org.example.article.presentation.controller.CommandController;
+import org.example.article.presentation.controller.ExceptionHandler;
 import org.example.dispatcher.dto.Request;
 
 public class CommandRequestHandlerAdapter implements RequestHandler {

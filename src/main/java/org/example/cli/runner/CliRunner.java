@@ -1,9 +1,8 @@
-package org.example.article.cli.runner;
+package org.example.cli.runner;
 
-import org.example.article.cli.view.CliView;
+import org.example.cli.runner.view.CliView;
 import org.example.dispatcher.ApplicationRunner;
 import org.example.dispatcher.DispatchController;
-import org.example.article.cli.view.InputView;
 import org.example.dispatcher.dto.Request;
 
 public class CliRunner implements ApplicationRunner {

@@ -1,7 +1,7 @@
-package org.example.article.cli.controller;
+package org.example.article.presentation.controller;
 
-import org.example.article.cli.exception.PresentationException;
-import org.example.article.cli.view.ErrorView;
+import org.example.article.presentation.exception.PresentationException;
+import org.example.article.presentation.view.ErrorView;
 
 public class ExceptionHandler {
 

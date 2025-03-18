@@ -1,8 +1,8 @@
-package org.example.article.cli.command;
+package org.example.article.presentation.command;
 
-import org.example.article.cli.controller.CommandController;
-import org.example.article.cli.dto.request.ArticleInfoDto;
-import org.example.article.cli.dto.request.IdDto;
+import org.example.article.presentation.controller.CommandController;
+import org.example.article.presentation.dto.request.ArticleInfoDto;
+import org.example.article.presentation.dto.request.IdDto;
 
 import java.util.Optional;
 

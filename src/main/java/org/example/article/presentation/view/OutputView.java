@@ -1,4 +1,4 @@
-package org.example.article.cli.view;
+package org.example.article.presentation.view;
 
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.entity.Articles;

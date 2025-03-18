@@ -1,4 +1,4 @@
-package org.example.article.cli.view;
+package org.example.article.presentation.view;
 
 public final class ErrorView {
     private ErrorView() {

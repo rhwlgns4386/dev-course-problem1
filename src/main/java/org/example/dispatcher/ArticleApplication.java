@@ -1,7 +1,7 @@
 package org.example.dispatcher;
 
-import org.example.article.cli.CommandRequestHandlerFactory;
-import org.example.article.cli.runner.CliRunner;
+import org.example.article.presentation.CommandRequestHandlerFactory;
+import org.example.cli.runner.CliRunner;
 
 public class ArticleApplication {
 

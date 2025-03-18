@@ -1,12 +1,12 @@
-package org.example.article.cli.controller;
+package org.example.article.presentation.controller;
 
-import org.example.article.cli.dto.request.IdDto;
-import org.example.article.cli.dto.request.ArticleInfoDto;
-import org.example.article.cli.exception.ArticleNotFoundException;
-import org.example.article.cli.exception.WriteException;
-import org.example.article.cli.runner.ApplicationStateHolder;
-import org.example.article.cli.view.InputView;
-import org.example.article.cli.view.OutputView;
+import org.example.article.presentation.dto.request.IdDto;
+import org.example.article.presentation.dto.request.ArticleInfoDto;
+import org.example.article.presentation.exception.ArticleNotFoundException;
+import org.example.article.presentation.exception.WriteException;
+import org.example.cli.runner.ApplicationStateHolder;
+import org.example.article.presentation.view.InputView;
+import org.example.article.presentation.view.OutputView;
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.exeption.EntityCreationException;
 import org.example.article.domain.exeption.EntityNotFoundException;
@@ -50,7 +50,7 @@ public class CommandController {
             Article article = articleService.loadArticle(id.toLong());
             OutputView.render(article);
         }catch (EntityNotFoundException e){
-            throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
+            articleNotFoundException(id, e);
         }
     }
 
@@ -63,7 +63,7 @@ public class CommandController {
             articleService.delete(id.toLong());
             OutputView.renderDeleted(id.toLong());
         }catch (EntityNotFoundException e){
-            throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
+            articleNotFoundException(id, e);
         }
     }
 
@@ -79,7 +79,7 @@ public class CommandController {
         try {
             articleService.validateContainsId(id.toLong());
         }catch (EntityNotFoundException e){
-            throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
+            articleNotFoundException(id, e);
         }
     }
 
@@ -88,7 +88,12 @@ public class CommandController {
             articleService.update(id.toLong(), article.title(), article.content());
             OutputView.renderUpdate(id.toLong());
         }catch (EntityNotFoundException e){
-            throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.",id.toLong()),e);
+            articleNotFoundException(id, e);
         }
     }
+
+    private static void articleNotFoundException(IdDto id, EntityNotFoundException e) {
+        throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.", id.toLong()), e);
+    }
+
 }

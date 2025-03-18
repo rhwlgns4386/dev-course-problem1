@@ -2,9 +2,9 @@ package org.example.article;
 
 import org.example.ApplicationTest;
 import org.example.dispatcher.ArticleApplication;
-import org.example.article.cli.CommandRequestHandlerFactory;
-import org.example.article.cli.runner.ApplicationStateHolder;
-import org.example.article.cli.config.DefaultCommandConfig;
+import org.example.article.presentation.CommandRequestHandlerFactory;
+import org.example.cli.runner.ApplicationStateHolder;
+import org.example.article.presentation.config.DefaultCommandConfig;
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.service.ArticleRepository;
 import org.example.article.persistance.InMemoryArticleRepository;

@@ -1,9 +1,9 @@
-package org.example.article.cli;
+package org.example.article.presentation;
 
-import org.example.article.cli.controller.ExceptionHandler;
+import org.example.article.presentation.controller.ExceptionHandler;
 import org.example.dispatcher.RequestHandler;
-import org.example.article.cli.config.CommandConfig;
-import org.example.article.cli.config.DefaultCommandConfig;
+import org.example.article.presentation.config.CommandConfig;
+import org.example.article.presentation.config.DefaultCommandConfig;
 
 public class CommandRequestHandlerFactory {
     private static CommandConfig commandConfig = new DefaultCommandConfig();

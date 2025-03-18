@@ -1,4 +1,4 @@
-package org.example.article.cli.view;
+package org.example.cli.runner.view;
 
 import org.example.input.CliInput;
 

@@ -1,4 +1,4 @@
-package org.example.article.cli.runner;
+package org.example.cli.runner;
 
 public final class ApplicationStateHolder {
     private static boolean run = true;

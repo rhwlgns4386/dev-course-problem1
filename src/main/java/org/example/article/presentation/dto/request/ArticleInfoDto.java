@@ -1,4 +1,4 @@
-package org.example.article.cli.dto.request;
+package org.example.article.presentation.dto.request;
 
 public class ArticleInfoDto {
 

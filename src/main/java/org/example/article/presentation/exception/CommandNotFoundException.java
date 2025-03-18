@@ -1,4 +1,4 @@
-package org.example.article.cli.exception;
+package org.example.article.presentation.exception;
 
 public class CommandNotFoundException extends PresentationException {
     public CommandNotFoundException(String message) {

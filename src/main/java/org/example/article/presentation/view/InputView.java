@@ -1,6 +1,6 @@
-package org.example.article.cli.view;
+package org.example.article.presentation.view;
 
-import org.example.article.cli.dto.request.ArticleInfoDto;
+import org.example.article.presentation.dto.request.ArticleInfoDto;
 import org.example.input.CliInput;
 
 public class InputView {
