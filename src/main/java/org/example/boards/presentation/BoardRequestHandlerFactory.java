@@ -2,6 +2,7 @@ package org.example.boards.presentation;
 
 import org.example.boards.config.BoardConfig;
 import org.example.dispatcher.RequestHandler;
+import org.example.global.exception.ExceptionHandler;
 
 public class BoardRequestHandlerFactory {
     private static BoardConfig config = new BoardConfig();
@@ -11,6 +12,6 @@ public class BoardRequestHandlerFactory {
     }
 
     public static RequestHandler create(){
-        return new BoardRequestHandlerAdaptor(config.boardController());
+        return new BoardRequestHandlerAdaptor(config.boardController(),new ExceptionHandler());
     }
 }

@@ -86,6 +86,15 @@ public class BoardApplicationTest extends ApplicationTest {
         assertThat(out()).contains("1/test1/"+format);
     }
 
+    @Test
+    void 없는_명령어_사용(){
+        run(()->{
+            in("/boards/view","exit");
+            CliApplication.main(new String[]{});
+        });
+        assertThat(out()).contains("파라미터가 잘못 되었습니다.");
+    }
+
     private static class TestConfig extends BoardConfig {
 
         @Override

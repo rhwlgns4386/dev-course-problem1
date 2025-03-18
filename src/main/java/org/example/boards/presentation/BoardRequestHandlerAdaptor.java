@@ -4,13 +4,18 @@ import org.example.boards.presentation.controller.BoardController;
 import org.example.dispatcher.RequestHandler;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.UriRequest;
+import org.example.global.BaseRequestHandler;
+import org.example.global.exception.CommandNotFoundException;
+import org.example.global.exception.ExceptionHandler;
+import org.example.global.exception.PresentationException;
 
-public class BoardRequestHandlerAdaptor implements RequestHandler {
+public class BoardRequestHandlerAdaptor extends BaseRequestHandler {
 
     private final String PREFIX = "/boards";
     private final BoardController boardController;
 
-    public BoardRequestHandlerAdaptor(BoardController boardController) {
+    public BoardRequestHandlerAdaptor(BoardController boardController, ExceptionHandler exceptionHandler) {
+        super(exceptionHandler);
         this.boardController = boardController;
     }
 
@@ -24,36 +29,13 @@ public class BoardRequestHandlerAdaptor implements RequestHandler {
     }
 
     @Override
-    public void run(Request commandInput) {
-        UriRequest uriRequest = (UriRequest) commandInput;
+    public void execute(Request commandInput) {
+        BoardCommand command = BoardCommand.findPath(extractCommandString(commandInput)).orElseThrow(()->new CommandNotFoundException("존재하지 않는 명령어 입니다."));
+        command.execute(boardController, (UriRequest) commandInput);
+    }
+
+    private String extractCommandString(Request commandInput) {
         String value = commandInput.command();
-        String command = value.substring(PREFIX.length());
-        if (command.startsWith("/add")) {
-            String title = boardController.readBoardName();
-            boardController.write(title);
-        } else if (command.startsWith("/edit")) {
-            String boardId = uriRequest.getParameter("boardId");
-            if (boardId == null) {
-                return;
-            }
-            long id = Long.parseLong(boardId);
-            boardController.containId(id);
-            String title = boardController.readBoardName();
-            boardController.edit(id, title);
-        } else if (command.startsWith("/remove")) {
-            String boardId = uriRequest.getParameter("boardId");
-            if (boardId == null) {
-                return;
-            }
-            long id = Long.parseLong(boardId);
-            boardController.remove(id);
-        }else if(command.startsWith("/view")){
-            String boardId = uriRequest.getParameter("boardName");
-            if (boardId == null) {
-                return;
-            }
-            long id = Long.parseLong(boardId);
-            boardController.load(id);
-        }
+        return value.substring(PREFIX.length());
     }
 }
