@@ -13,10 +13,18 @@ public class Article {
     private String content;
 
     public Article(Long id, String title, String content) throws EntityCreationException {
-        validate(title);
-        validate(content);
         this.id = id;
+        setTitle(title);
+        setContent(content);
+    }
+
+    private void setTitle(String title) {
+        validate(title);
         this.title = title;
+    }
+
+    private void setContent(String content) {
+        validate(content);
         this.content = content;
     }
 
@@ -26,8 +34,8 @@ public class Article {
 
 
     public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
+        setTitle(title);
+        setContent(content);
     }
 
     public String title() {
