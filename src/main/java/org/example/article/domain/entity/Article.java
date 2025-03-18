@@ -3,7 +3,7 @@ package org.example.article.domain.entity;
 import org.example.article.domain.exeption.EntityCreationException;
 import org.example.persistance.anotaion.Id;
 
-import static org.example.article.domain.entity.StringValidator.validate;
+import static org.example.validator.StringValidator.validate;
 
 public class Article {
 

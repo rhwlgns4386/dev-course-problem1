@@ -15,7 +15,7 @@ public class CliRunner implements ApplicationRunner {
 
     public void run(){
         while (ApplicationStateHolder.isRun()) {
-            dispatchController.dispatch(new Request("command", CliView.readCommand()));
+            dispatchController.dispatch(new Request(CliView.readCommand()));
         }
     }
 }

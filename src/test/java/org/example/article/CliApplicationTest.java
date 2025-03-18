@@ -1,7 +1,7 @@
 package org.example.article;
 
 import org.example.ApplicationTest;
-import org.example.ArticleApplication;
+import org.example.CliApplication;
 import org.example.article.presentation.CommandRequestHandlerFactory;
 import org.example.cli.runner.ApplicationStateHolder;
 import org.example.article.presentation.config.DefaultCommandConfig;
@@ -17,7 +17,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ArticleApplicationTest extends ApplicationTest {
+public class CliApplicationTest extends ApplicationTest {
 
     private final static ArticleRepository articleRepository = new InMemoryArticleRepository();
 
@@ -40,7 +40,7 @@ public class ArticleApplicationTest extends ApplicationTest {
     void 종료_명령어를_입력시_종료된다(String command) {
         run(() -> {
             in(command);
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
         assertThat(out()).contains("프로그램이 종료됩니다.");
     }
@@ -55,7 +55,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in(command,"종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
@@ -77,7 +77,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in(command,title,content,"목록","종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
@@ -93,7 +93,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in("작성","","","종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
@@ -110,7 +110,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in("조회","1번","조회","2번","종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
@@ -130,7 +130,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in("조회","2번","종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
@@ -146,7 +146,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in(command,"1번","종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
@@ -162,7 +162,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in("삭제","2번","종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
@@ -179,7 +179,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in(command,"1번","제목2","내용1","종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
@@ -196,7 +196,7 @@ public class ArticleApplicationTest extends ApplicationTest {
 
         run(() -> {
             in("수정","1번","종료");
-            ArticleApplication.main(new String[]{});
+            CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(

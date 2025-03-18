@@ -1,11 +1,14 @@
 package org.example.boards.domain.entity;
 
+import org.example.persistance.anotaion.Id;
+
 import java.time.LocalDateTime;
 
-import static org.example.article.domain.entity.StringValidator.validate;
+import static org.example.validator.StringValidator.validate;
 
 public class Board {
 
+    @Id
     private Long id;
     private String title;
     private LocalDateTime updateAt;
