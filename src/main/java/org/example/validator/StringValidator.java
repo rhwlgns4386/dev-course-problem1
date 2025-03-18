@@ -1,4 +1,4 @@
-package org.example.article.domain.entity;
+package org.example.validator;
 
 import java.util.Objects;
 
