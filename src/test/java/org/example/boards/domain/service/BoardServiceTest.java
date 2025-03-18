@@ -6,6 +6,7 @@ import org.example.boards.domain.entity.Title;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -81,8 +82,13 @@ public class BoardServiceTest {
         }
 
         @Override
-        public Long count(){
-            return board == null ? 0L : 1L;
+        public List<Board> findAll() {
+            return List.of();
+        }
+
+        @Override
+        public Integer count(){
+            return board == null ? 0 : 1;
         }
 
         @Override

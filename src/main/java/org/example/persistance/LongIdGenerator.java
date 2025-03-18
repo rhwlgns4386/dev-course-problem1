@@ -1,4 +1,4 @@
-package org.example.article.persistance;
+package org.example.persistance;
 
 public final class LongIdGenerator {
 

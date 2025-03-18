@@ -1,4 +1,4 @@
-package org.example.article.persistance.anotaion;
+package org.example.persistance.anotaion;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

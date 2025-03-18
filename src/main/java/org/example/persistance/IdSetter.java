@@ -1,7 +1,6 @@
-package org.example.article.persistance;
+package org.example.persistance;
 
-import org.example.article.domain.entity.Article;
-import org.example.article.persistance.anotaion.Id;
+import org.example.persistance.anotaion.Id;
 import org.example.article.persistance.exception.IdFieldNotFoundException;
 
 import java.lang.reflect.Field;
@@ -12,7 +11,7 @@ public class IdSetter {
 
     }
 
-    void setId(Article article,Long id) throws IdFieldNotFoundException {
+    void setId(Object article, Long id) throws IdFieldNotFoundException {
         try {
             Field field = findIdField(getFields(article));
             field.setAccessible(true);
@@ -22,8 +21,8 @@ public class IdSetter {
         }
     }
 
-    private static Field[] getFields(Article article) {
-        Class<? extends Article> aClass = article.getClass();
+    private static Field[] getFields(Object article) {
+        Class<?> aClass = article.getClass();
         return aClass.getDeclaredFields();
     }
 

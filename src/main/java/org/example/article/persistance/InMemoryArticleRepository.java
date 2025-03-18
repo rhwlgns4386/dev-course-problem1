@@ -3,6 +3,9 @@ package org.example.article.persistance;
 import org.example.article.domain.entity.Article;
 import org.example.article.domain.service.ArticleRepository;
 import org.example.article.persistance.exception.IdFieldNotFoundException;
+import org.example.persistance.IdSetter;
+import org.example.persistance.LongIdGenerator;
+import org.example.persistance.LongKeyBaseRepository;
 
 import java.util.*;
 
@@ -16,47 +19,6 @@ import java.util.*;
  * @since 2025-03-13
  */
 
-public class InMemoryArticleRepository implements ArticleRepository {
+public class InMemoryArticleRepository extends LongKeyBaseRepository<Article> implements ArticleRepository {
 
-    private final Map<Long, Article> storedArticles = new HashMap<>();
-    private final LongIdGenerator idGenerator = new LongIdGenerator();
-    private final IdSetter idSetter = new IdSetter();
-
-    @Override
-    public Optional<Article> findById(Long id) {
-        return Optional.ofNullable(storedArticles.get(id));
-    }
-
-    @Override
-    public void save(Article article) throws IdFieldNotFoundException {
-        try {
-            Long id = idGenerator.next();
-            idSetter.setId(article,id);
-            storedArticles.put(id, article);
-        }catch (IdFieldNotFoundException e){
-            idGenerator.rollback();
-            throw e;
-        }
-    }
-
-    @Override
-    public List<Article> findAll() {
-        return new ArrayList<>(storedArticles.values());
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        storedArticles.remove(id);
-    }
-
-    @Override
-    public boolean extractById(Long id) {
-        return storedArticles.containsKey(id);
-    }
-
-    @Override
-    public void clear() {
-        this.storedArticles.clear();
-        this.idGenerator.clear();
-    }
 }
