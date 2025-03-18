@@ -12,4 +12,8 @@ public interface BoardRepository {
     Optional<Board> findById(Long id);
 
     void clear();
+
+    void deleteById(Long id);
+
+    boolean extractById(Long id);
 }

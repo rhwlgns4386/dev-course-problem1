@@ -51,6 +51,19 @@ public class BoardServiceTest {
         assertThatThrownBy(()-> boardService.update(1L,new Title("update"))).isInstanceOf(EntityNotFoundException.class);
     }
 
+    @Test
+    void 보드삭제(){
+        boardRepository.save(new Board(new Title("test")));
+        boardService.delete(1L);
+
+        assertThat(boardRepository.count()).isEqualTo(0L);
+    }
+
+    @Test
+    void 없는_보드_삭제시_예외(){
+        assertThatThrownBy(()->boardService.delete(1L)).isInstanceOf(EntityNotFoundException.class);
+    }
+
     private static class BoardRepositoryStub implements BoardRepository{
 
         private Board board;
@@ -77,6 +90,21 @@ public class BoardServiceTest {
         @Override
         public void clear(){
             board = null;
+        }
+
+        @Override
+        public void deleteById(Long id) {
+            if(id != null && id == 1L && board != null){
+                board = null;
+            }
+        }
+
+        @Override
+        public boolean extractById(Long id) {
+            if(id != null && id == 1L && board != null){
+                return true;
+            }
+            return false;
         }
     }
 }

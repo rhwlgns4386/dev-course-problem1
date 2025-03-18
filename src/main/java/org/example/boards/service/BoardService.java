@@ -23,6 +23,13 @@ public class BoardService {
         board.update(title);
     }
 
+    public void delete(Long id) {
+        if(!boardRepository.extractById(id)){
+            throw entityNotFoundException();
+        }
+        boardRepository.deleteById(id);
+    }
+
     private static EntityNotFoundException entityNotFoundException() {
         return new EntityNotFoundException("포스트를 찾을 수 없습니다.");
     }
