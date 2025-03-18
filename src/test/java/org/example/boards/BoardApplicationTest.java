@@ -8,6 +8,7 @@ import org.example.boards.domain.entity.Title;
 import org.example.boards.domain.service.BoardRepository;
 import org.example.boards.persistance.InMemoryBoardRepository;
 import org.example.boards.presentation.BoardRequestHandlerFactory;
+import org.example.cli.runner.ApplicationStateHolder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,7 @@ public class BoardApplicationTest extends ApplicationTest {
 
     @BeforeEach
     public void initRepository(){
+        ApplicationStateHolder.start();
         boardRepository.clear();
     }
 
@@ -56,6 +58,18 @@ public class BoardApplicationTest extends ApplicationTest {
         Optional<Board> board = boardRepository.findById(1L);
         assertThat(board).isPresent();
         board.ifPresent((value)->assertThat(value.title()).isEqualTo(title));
+    }
+
+    @Test
+    void 게시판삭제(){
+        boardRepository.save(new Board(new Title("test1")));
+
+        run(()->{
+            in("/boards/remove?boardId=1","exit");
+            CliApplication.main(new String[]{});
+        });
+        Optional<Board> board = boardRepository.findById(1L);
+        assertThat(board).isEmpty();
     }
 
     private static class TestConfig extends BoardConfig {

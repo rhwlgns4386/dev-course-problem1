@@ -43,6 +43,13 @@ public class BoardRequestHandlerAdaptor implements RequestHandler {
             boardController.containId(id);
             String title = boardController.readBoardName();
             boardController.edit(id, title);
+        } else if (command.startsWith("/remove")) {
+            String boardId = uriRequest.getParameter("boardId");
+            if (boardId == null) {
+                return;
+            }
+            long id = Long.parseLong(boardId);
+            boardController.remove(id);
         }
     }
 }

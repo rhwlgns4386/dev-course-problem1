@@ -29,4 +29,8 @@ public class BoardController {
     public void edit(Long id, String title) {
         boardService.update(id, new Title(title));
     }
+
+    public void remove(Long id) {
+        boardService.delete(id);
+    }
 }
