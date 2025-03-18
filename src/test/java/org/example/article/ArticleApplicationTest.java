@@ -1,7 +1,7 @@
 package org.example.article;
 
 import org.example.ApplicationTest;
-import org.example.dispatcher.ArticleApplication;
+import org.example.ArticleApplication;
 import org.example.article.presentation.CommandRequestHandlerFactory;
 import org.example.cli.runner.ApplicationStateHolder;
 import org.example.article.presentation.config.DefaultCommandConfig;
