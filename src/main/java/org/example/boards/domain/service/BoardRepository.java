@@ -1,4 +1,4 @@
-package org.example.boards.service;
+package org.example.boards.domain.service;
 
 import org.example.boards.domain.entity.Board;
 

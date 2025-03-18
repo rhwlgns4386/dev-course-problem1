@@ -1,10 +1,8 @@
-package org.example.boards.service;
+package org.example.boards.domain.service;
 
 import org.example.article.domain.exeption.EntityNotFoundException;
 import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.entity.Title;
-
-import java.util.Optional;
 
 public class BoardService {
 
@@ -28,6 +26,10 @@ public class BoardService {
             throw entityNotFoundException();
         }
         boardRepository.deleteById(id);
+    }
+
+    public Board load(Long id) {
+        return boardRepository.findById(id).orElseThrow(BoardService::entityNotFoundException);
     }
 
     private static EntityNotFoundException entityNotFoundException() {
