@@ -22,14 +22,18 @@ public class BoardService {
     }
 
     public void delete(Long id) {
-        if(!boardRepository.extractById(id)){
-            throw entityNotFoundException();
-        }
+        validateContainsId(id);
         boardRepository.deleteById(id);
     }
 
     public Board load(Long id) {
         return boardRepository.findById(id).orElseThrow(BoardService::entityNotFoundException);
+    }
+
+    public void validateContainsId(Long id) {
+        if(!boardRepository.extractById(id)){
+            throw entityNotFoundException();
+        }
     }
 
     private static EntityNotFoundException entityNotFoundException() {

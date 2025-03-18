@@ -13,16 +13,12 @@ public class Request {
         this.command = command;
     }
 
-    public Request(String command) {
-        this(getType(command),command);
-    }
-
-    private static String getType(String command){
+    public static Request of(String command){
         Optional<Command> byName = Command.findByName(command);
         if(byName.isPresent()){
-            return "command";
+            return new Request("command",command);
         }
-        return "url";
+        return new UriRequest(command);
     }
 
     public String type() {
