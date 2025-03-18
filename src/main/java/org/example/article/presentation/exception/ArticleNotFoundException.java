@@ -1,6 +1,8 @@
 package org.example.article.presentation.exception;
 
-public class ArticleNotFoundException extends PresentationException{
+import org.example.global.exception.PresentationException;
+
+public class ArticleNotFoundException extends PresentationException {
     public ArticleNotFoundException(String message) {
         super(message);
     }

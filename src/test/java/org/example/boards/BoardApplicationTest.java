@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,6 +71,19 @@ public class BoardApplicationTest extends ApplicationTest {
         });
         Optional<Board> board = boardRepository.findById(1L);
         assertThat(board).isEmpty();
+    }
+
+    @Test
+    void 게시판조회(){
+        Title title = new Title("test1");
+        boardRepository.save(new Board(title));
+
+        run(()->{
+            in("/boards/view?boardName=1","exit");
+            CliApplication.main(new String[]{});
+        });
+        String format = title.createAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        assertThat(out()).contains("1/test1/"+format);
     }
 
     private static class TestConfig extends BoardConfig {

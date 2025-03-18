@@ -1,6 +1,6 @@
 package org.example.article.presentation;
 
-import org.example.article.presentation.controller.ExceptionHandler;
+import org.example.global.exception.ExceptionHandler;
 import org.example.dispatcher.RequestHandler;
 import org.example.article.presentation.config.CommandConfig;
 import org.example.article.presentation.config.DefaultCommandConfig;

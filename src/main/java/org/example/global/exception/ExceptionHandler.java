@@ -1,6 +1,5 @@
-package org.example.article.presentation.controller;
+package org.example.global.exception;
 
-import org.example.article.presentation.exception.PresentationException;
 import org.example.article.presentation.view.ErrorView;
 
 public class ExceptionHandler {

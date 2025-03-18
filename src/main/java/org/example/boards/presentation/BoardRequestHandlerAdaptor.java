@@ -1,12 +1,9 @@
 package org.example.boards.presentation;
 
-import org.example.article.presentation.dto.request.IdDto;
 import org.example.boards.presentation.controller.BoardController;
 import org.example.dispatcher.RequestHandler;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.UriRequest;
-
-import java.util.regex.Pattern;
 
 public class BoardRequestHandlerAdaptor implements RequestHandler {
 
@@ -50,6 +47,13 @@ public class BoardRequestHandlerAdaptor implements RequestHandler {
             }
             long id = Long.parseLong(boardId);
             boardController.remove(id);
+        }else if(command.startsWith("/view")){
+            String boardId = uriRequest.getParameter("boardName");
+            if (boardId == null) {
+                return;
+            }
+            long id = Long.parseLong(boardId);
+            boardController.load(id);
         }
     }
 }

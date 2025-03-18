@@ -1,4 +1,4 @@
-package org.example.article.presentation.exception;
+package org.example.global.exception;
 
 public class PresentationException extends RuntimeException {
     public PresentationException(String message) {

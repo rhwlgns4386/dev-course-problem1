@@ -2,9 +2,11 @@ package org.example.boards.presentation.controller;
 
 import org.example.article.domain.exeption.EntityNotFoundException;
 import org.example.article.presentation.dto.request.IdDto;
+import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.entity.Title;
 import org.example.boards.domain.service.BoardService;
 import org.example.boards.presentation.view.InputView;
+import org.example.boards.presentation.view.OutputView;
 
 public class BoardController {
 
@@ -32,5 +34,9 @@ public class BoardController {
 
     public void remove(Long id) {
         boardService.delete(id);
+    }
+
+    public void load(Long id) {
+        OutputView.renderBoard(boardService.load(id));
     }
 }

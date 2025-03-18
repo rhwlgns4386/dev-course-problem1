@@ -32,6 +32,10 @@ public class Board {
         setTitle(title);
     }
 
+    public Long id() {
+        return id;
+    }
+
     public LocalDateTime updateAt() {
         return updateAt;
     }
