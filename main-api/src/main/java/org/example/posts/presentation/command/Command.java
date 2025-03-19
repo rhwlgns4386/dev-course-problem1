@@ -13,7 +13,7 @@ public enum Command {
     WRITE("/add") {
         @Override
         public void execute(Request uriRequest, PostsController postsController) {
-            String id = uriRequest.getParameter("bordId");
+            String id = uriRequest.getParameter("boardId");
             postsController.write(Command.toValidLong(id),postsController.readInfo());
         }
     },
