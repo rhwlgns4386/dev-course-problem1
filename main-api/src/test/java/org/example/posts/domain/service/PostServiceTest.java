@@ -67,6 +67,11 @@ public class PostServiceTest {
     }
 
     @Test
+    void 없는_게시판에_작성시_비어있다면_예외() {
+        assertThatThrownBy(() -> postsService.save(2L,"없다", "진짜없다")).isInstanceOf(EntityCreationException.class);
+    }
+
+    @Test
     void 저장된_게시글조회() {
         Long id = 1L;
 
