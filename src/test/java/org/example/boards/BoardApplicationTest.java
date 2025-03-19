@@ -87,6 +87,19 @@ public class BoardApplicationTest extends ApplicationTest {
     }
 
     @Test
+    void 게시판조회_중복_파라미터(){
+        Title title = new Title("test1");
+        boardRepository.save(new Board(title));
+
+        run(()->{
+            in("/boards/view?boardName=2&boardName=1","exit");
+            CliApplication.main(new String[]{});
+        });
+        String format = title.createAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        assertThat(out()).contains("1/test1/"+format);
+    }
+
+    @Test
     void 없는_명령어_사용(){
         run(()->{
             in("/boards/view","exit");
