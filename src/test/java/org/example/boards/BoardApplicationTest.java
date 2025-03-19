@@ -34,6 +34,18 @@ public class BoardApplicationTest extends CliApplicationTest {
     }
 
     @Test
+    void 숫자가아닌_파라미터_예외() {
+        run(() -> {
+            in(input -> input.command("/boards/edit?boardId=1번"));
+            CliApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "숫자가 아닙니다."
+        );
+    }
+
+    @Test
     void 게시판생성(){
         String title = "test";
         run(()->{

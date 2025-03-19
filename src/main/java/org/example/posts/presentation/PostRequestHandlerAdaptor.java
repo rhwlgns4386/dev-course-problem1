@@ -4,7 +4,7 @@ import org.example.dispatcher.dto.Request;
 import org.example.global.BaseRequestHandler;
 import org.example.global.exception.CommandNotFoundException;
 import org.example.global.exception.ExceptionHandler;
-import org.example.posts.presentation.command.CommandUrl;
+import org.example.posts.presentation.command.Command;
 import org.example.posts.presentation.controller.PostsController;
 
 public class PostRequestHandlerAdaptor extends BaseRequestHandler {
@@ -25,7 +25,7 @@ public class PostRequestHandlerAdaptor extends BaseRequestHandler {
 
     @Override
     public void execute(Request commandInput) {
-        CommandUrl command = CommandUrl.findPath(extractCommandString(commandInput)).orElseThrow(() -> new CommandNotFoundException("존재하지 않는 명령어 입니다."));
+        Command command = Command.findPath(extractCommandString(commandInput)).orElseThrow(() -> new CommandNotFoundException("존재하지 않는 명령어 입니다."));
         command.execute(commandInput, postsController);
     }
 

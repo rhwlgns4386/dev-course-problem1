@@ -38,6 +38,18 @@ public class PostApplicationTest extends CliApplicationTest {
     }
 
     @Test
+    void 숫자가아닌_파라미터_예외() {
+        run(() -> {
+            in(input -> input.command("/posts/add?bordId=1번"));
+            CliApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "숫자가 아닙니다."
+        );
+    }
+
+    @Test
     void 게시글_작성() {
         String title = "제목1";
         String content = "내용1";

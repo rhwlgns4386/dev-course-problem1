@@ -29,8 +29,10 @@ public abstract class BaseRequestHandler implements RequestHandler {
             return;
         }else if(e instanceof FormatException){
             exceptionHandler.handleFormatException(e);
+        }else{
+            exceptionHandler.handleRuntimeException(e);
         }
-        exceptionHandler.handleRuntimeException(e);
+
     }
 
     public abstract void execute(Request commandInput);
