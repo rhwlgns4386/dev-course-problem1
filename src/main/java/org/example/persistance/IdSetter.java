@@ -1,7 +1,7 @@
 package org.example.persistance;
 
 import org.example.persistance.anotaion.Id;
-import org.example.article.persistance.exception.IdFieldNotFoundException;
+import org.example.posts.persistance.exception.IdFieldNotFoundException;
 
 import java.lang.reflect.Field;
 

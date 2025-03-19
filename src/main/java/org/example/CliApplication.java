@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.article.presentation.CommandRequestHandlerFactory;
+import org.example.posts.presentation.CommandRequestHandlerFactory;
 import org.example.boards.presentation.BoardRequestHandlerFactory;
 import org.example.cli.runner.CliRunner;
 import org.example.dispatcher.ApplicationRunner;

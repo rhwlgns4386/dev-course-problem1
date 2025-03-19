@@ -1,6 +1,6 @@
 package org.example.dispatcher.dto;
 
-import org.example.article.presentation.command.Command;
+import org.example.posts.presentation.command.Command;
 
 import java.util.Optional;
 

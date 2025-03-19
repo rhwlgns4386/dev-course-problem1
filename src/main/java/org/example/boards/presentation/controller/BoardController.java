@@ -1,6 +1,6 @@
 package org.example.boards.presentation.controller;
 
-import org.example.article.domain.exeption.EntityNotFoundException;
+import org.example.posts.domain.exeption.EntityNotFoundException;
 import org.example.boards.domain.entity.Title;
 import org.example.boards.domain.service.BoardService;
 import org.example.boards.presentation.exception.BoardNotFoundException;

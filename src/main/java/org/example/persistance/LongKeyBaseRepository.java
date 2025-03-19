@@ -1,6 +1,6 @@
 package org.example.persistance;
 
-import org.example.article.persistance.exception.IdFieldNotFoundException;
+import org.example.posts.persistance.exception.IdFieldNotFoundException;
 
 import java.util.*;
 
