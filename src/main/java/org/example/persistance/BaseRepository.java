@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface BaseRepository<K,E> {
     Optional<E> findById(K id);
 
-    void save(E article);
+    E save(E article);
 
     List<E> findAll();
 

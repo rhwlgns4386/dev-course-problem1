@@ -4,6 +4,8 @@ import org.example.cli.runner.view.CliView;
 import org.example.dispatcher.ApplicationRunner;
 import org.example.dispatcher.DispatchController;
 import org.example.dispatcher.dto.Request;
+import org.example.global.exception.FormatException;
+import org.example.global.ErrorView;
 
 public class CliRunner implements ApplicationRunner {
 
@@ -15,7 +17,11 @@ public class CliRunner implements ApplicationRunner {
 
     public void run(){
         while (ApplicationStateHolder.isRun()) {
-            dispatchController.dispatch(Request.of(CliView.readCommand()));
+            try {
+                dispatchController.dispatch(new Request(CliView.readCommand()));
+            }catch (FormatException e){
+                ErrorView.renderError(e.getMessage());
+            }
         }
     }
 }

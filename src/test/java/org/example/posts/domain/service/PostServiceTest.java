@@ -1,38 +1,74 @@
 package org.example.posts.domain.service;
 
+import org.example.boards.domain.entity.Board;
+import org.example.boards.domain.entity.Title;
+import org.example.boards.domain.service.BoardRepository;
+import org.example.boards.persistance.InMemoryBoardRepository;
+import org.example.persistance.LongKeyBaseRepository;
 import org.example.posts.domain.entity.Post;
 import org.example.posts.domain.entity.Posts;
 import org.example.posts.domain.exeption.EntityCreationException;
 import org.example.posts.domain.exeption.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.example.posts.TestBoards.board;
 
 public class PostServiceTest {
 
     private PostsRepository postsRepository;
+    private static BoardRepository boardRepository = new InMemoryBoardRepository();
     private PostsService postsService;
+    private PostsService postsService2;
+    private static Board board;
+
+    @BeforeAll
+    public static void initBoard(){
+        board = new Board(new Title("test"));
+        boardRepository.save(board);
+    }
 
     @BeforeEach
     void initRepository() {
         postsRepository = new TestPostsRepository();
-        postsRepository.save( new Post(1L, "title", "content"));
+        postsRepository.save(new Post(1L, "title", "content", board));
+        postsService2 = new PostsService(postsRepository,boardRepository);
 
         postsService = new PostsService(postsRepository);
     }
 
+    @Test
+    void 게시글저장(){
+        String title = "title";
+        String content = "content";
+        LocalDateTime createdDate = LocalDateTime.now();
+
+        Long id = postsService2.save2(board.id(), title, content);
+        Optional<Post> post = postsRepository.findById(id);
+        assertThat(post).isPresent();
+        post.ifPresent((value)->{
+            assertThat(value.id()).isEqualTo(id);
+            assertThat(value.title()).isEqualTo(title);
+            assertThat(value.content()).isEqualTo(content);
+            assertThat(value.board()).isEqualTo(board);
+            assertThat(value.createdDate()).isAfterOrEqualTo(createdDate);
+        });
+    }
+
     @ParameterizedTest
-    @CsvSource(value = {"title,",",content"},delimiter = ',')
-    void 저장시_제목혹은_컨텐츠가_비어있다면_예외(String title, String content){
-        assertThatThrownBy(()-> postsService.save(title,content)).isInstanceOf(EntityCreationException.class);
+    @CsvSource(value = {"title,", ",content"}, delimiter = ',')
+    void 저장시_제목혹은_컨텐츠가_비어있다면_예외(String title, String content) {
+        assertThatThrownBy(() -> postsService.save(title, content)).isInstanceOf(EntityCreationException.class);
     }
 
     @Test
@@ -58,7 +94,7 @@ public class PostServiceTest {
 
     @Test
     void 게시글_목록조회() {
-        postsRepository.save(new Post(2L, "title", "content"));
+        postsRepository.save(new Post(2L, "title", "content", board));
 
         Posts posts = postsService.loadAll();
 
@@ -81,7 +117,7 @@ public class PostServiceTest {
     }
 
     @Test
-    void  없는_게시글정수시_예외() {
+    void 없는_게시글정수시_예외() {
         Long id = 2L;
         String title = "수정";
         String content = "수정되었습니다.";
@@ -93,7 +129,7 @@ public class PostServiceTest {
     @Test
     void 게시글삭제() {
         Long id = 2L;
-        postsRepository.save(new Post(id, "title", "content"));
+        postsRepository.save(new Post(id, "title", "content", board));
 
         postsService.delete(id);
 
@@ -105,51 +141,10 @@ public class PostServiceTest {
     void 없는_게시글삭제시_예외() {
         Long id = 2L;
 
-        assertThatThrownBy(()-> postsService.delete(id))
+        assertThatThrownBy(() -> postsService.delete(id))
                 .isInstanceOf(EntityNotFoundException.class);
     }
 
-    private static final class TestPostsRepository implements PostsRepository {
-        private List<Post> posts = new ArrayList<>();
-
-        @Override
-        public Optional<Post> findById(Long id) {
-            for (Post post : posts) {
-                if(post.id().equals(id)) {
-                    return Optional.of(post);
-                }
-            }
-            return Optional.empty();
-        }
-
-        @Override
-        public void save(Post post) {
-           posts.add(post);
-        }
-
-        @Override
-        public List<Post> findAll() {
-            return posts;
-        }
-
-        @Override
-        public void deleteById(Long id) {
-            findById(id).ifPresent(posts::remove);
-        }
-
-        @Override
-        public boolean extractById(Long id) {
-            for (Post post : posts) {
-                if(post.id().equals(id)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
+    private static final class TestPostsRepository extends LongKeyBaseRepository<Post> implements PostsRepository {
     }
 }

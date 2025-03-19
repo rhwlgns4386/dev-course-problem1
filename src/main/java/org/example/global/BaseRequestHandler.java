@@ -3,6 +3,7 @@ package org.example.global;
 import org.example.dispatcher.RequestHandler;
 import org.example.dispatcher.dto.Request;
 import org.example.global.exception.ExceptionHandler;
+import org.example.global.exception.FormatException;
 import org.example.global.exception.PresentationException;
 
 public abstract class BaseRequestHandler implements RequestHandler {
@@ -26,11 +27,10 @@ public abstract class BaseRequestHandler implements RequestHandler {
         if(e instanceof PresentationException){
             exceptionHandler.handlePresentationException((PresentationException) e);
             return;
-        } else if(e instanceof RuntimeException){
-            exceptionHandler.handleRuntimeException((RuntimeException) e);
-            return;
+        }else if(e instanceof FormatException){
+            exceptionHandler.handleFormatException(e);
         }
-        throw new RuntimeException(e);
+        exceptionHandler.handleRuntimeException(e);
     }
 
     public abstract void execute(Request commandInput);

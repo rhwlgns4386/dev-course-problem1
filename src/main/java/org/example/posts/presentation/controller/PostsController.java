@@ -21,68 +21,47 @@ public class PostsController {
         this.postsService = postsService;
     }
 
-    public void exit(){
-        ApplicationStateHolder.stop();
-        OutputView.renderExit();
-    }
-
-    public void all(){
-        OutputView.renderList(postsService.loadAll());
-    }
-
-    public PostInfoDto readInfo(){
+    public PostInfoDto readInfo() {
         return InputView.readArticleInfo();
     }
 
-    public void write(PostInfoDto postInfoDto){
+    public void write(IdDto boardId, PostInfoDto postInfoDto) {
         try {
-            postsService.save(postInfoDto.title(), postInfoDto.content());
-        }catch (EntityCreationException e){
-            throw new WriteException("게시글은 제목과 내용이 필수 입니다.",e);
+            postsService.save2(boardId.toLong(), postInfoDto.title(), postInfoDto.content());
+        } catch (EntityCreationException e) {
+            throw new WriteException("게시글은 제목과 내용이 필수 입니다.", e);
         }
     }
 
-    public String readLookUpId(){
-        return InputView.readId("조회");
-    }
-
-    public void lookup(IdDto id){
+    public void lookup(IdDto id) {
         try {
             Post post = postsService.loadArticle(id.toLong());
             OutputView.render(post);
-        }catch (EntityNotFoundException e){
-            articleNotFoundException(id, e);
+        } catch (EntityNotFoundException e) {
+            articleNotFoundException(id.toLong(), e);
         }
-    }
-
-    public String readDeleteId(){
-        return InputView.readId("삭제");
     }
 
     public void delete(IdDto id) {
         try {
             postsService.delete(id.toLong());
             OutputView.renderDeleted(id.toLong());
-        }catch (EntityNotFoundException e){
-            articleNotFoundException(id, e);
+        } catch (EntityNotFoundException e) {
+            articleNotFoundException(id.toLong(), e);
         }
     }
 
-    public String readUpdateId(){
-        return InputView.readId("수정");
-    }
-
-    public PostInfoDto readUpdateInfo(IdDto id){
+    public PostInfoDto readUpdateInfo(IdDto id) {
         return InputView.readUpdateInfo(id.toLong());
     }
 
     public void containId(IdDto id) {
         try {
             postsService.validateContainsId(id.toLong());
-        }catch (EntityNotFoundException e){
-            articleNotFoundException(id, e);
-        }catch (IllegalArgumentException e){
-            throw new PresentationException("게시글은 제목과 내용이 필수 입니다.",e);
+        } catch (EntityNotFoundException e) {
+            articleNotFoundException(id.toLong(), e);
+        } catch (IllegalArgumentException e) {
+            throw new PresentationException("게시글은 제목과 내용이 필수 입니다.", e);
         }
     }
 
@@ -90,15 +69,15 @@ public class PostsController {
         try {
             postsService.update(id.toLong(), article.title(), article.content());
             OutputView.renderUpdate(id.toLong());
-        }catch (EntityNotFoundException e){
-            articleNotFoundException(id, e);
-        }catch (IllegalArgumentException e){
-            throw new PresentationException("게시글은 제목과 내용이 필수 입니다.",e);
+        } catch (EntityNotFoundException e) {
+            articleNotFoundException(id.toLong(), e);
+        } catch (IllegalArgumentException e) {
+            throw new PresentationException("게시글은 제목과 내용이 필수 입니다.", e);
         }
     }
 
-    private static void articleNotFoundException(IdDto id, RuntimeException e) {
-        throw new PostNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.", id.toLong()), e);
+    private static void articleNotFoundException(Long id, RuntimeException e) {
+        throw new PostNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.", id), e);
     }
 
 }

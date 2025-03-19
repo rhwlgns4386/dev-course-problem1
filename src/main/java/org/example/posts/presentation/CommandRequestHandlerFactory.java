@@ -13,6 +13,6 @@ public class CommandRequestHandlerFactory {
     }
 
     public static RequestHandler create(){
-        return new CommandRequestHandlerAdapter(postsConfig.commandController(),new ExceptionHandler());
+        return new PostRequestHandlerAdaptor(postsConfig.commandController(),new ExceptionHandler());
     }
 }

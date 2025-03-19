@@ -1,31 +1,21 @@
 package org.example.dispatcher.dto;
 
-import org.example.posts.presentation.command.Command;
-
-import java.util.Optional;
-
 public class Request {
-    private final String type;
-    private final String command;
+    private final Url url;
 
-    public Request(String type, String command) {
-        this.type = type;
-        this.command = command;
+    public Request(String url) {
+        this.url = new Url(url);
     }
 
-    public static Request of(String command){
-        Optional<Command> byName = Command.findByName(command);
-        if(byName.isPresent()){
-            return new Request("command",command);
-        }
-        return new UriRequest(command);
+    public String getParameter(String key){
+        return url.getParmeter(key);
     }
 
-    public String type() {
-        return type;
+    public String getUrl() {
+        return url.url();
     }
 
-    public String command() {
-        return command;
+    public String getPath() {
+        return url.path();
     }
 }

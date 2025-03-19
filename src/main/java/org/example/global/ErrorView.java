@@ -1,4 +1,4 @@
-package org.example.posts.presentation.view;
+package org.example.global;
 
 public final class ErrorView {
     private ErrorView() {

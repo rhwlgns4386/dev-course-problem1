@@ -1,7 +1,7 @@
 package org.example.boards.presentation;
 
 import org.example.boards.presentation.controller.BoardController;
-import org.example.dispatcher.dto.UriRequest;
+import org.example.dispatcher.dto.Request;
 import org.example.global.exception.InvalidParamException;
 
 import java.util.Arrays;
@@ -10,13 +10,13 @@ import java.util.Optional;
 public enum BoardCommand {
     ADD("/add") {
         @Override
-        public void execute(BoardController boardController, UriRequest uriRequest) {
+        public void execute(BoardController boardController, Request uriRequest) {
             String title = boardController.readBoardName();
             boardController.write(title);
         }
     }, EDIT("/edit") {
         @Override
-        public void execute(BoardController boardController, UriRequest uriRequest) {
+        public void execute(BoardController boardController, Request uriRequest) {
             String boardId = uriRequest.getParameter("boardId");
             if (boardId == null) {
                 throw createInvalidParamException();
@@ -28,7 +28,7 @@ public enum BoardCommand {
         }
     }, REMOVE("/remove") {
         @Override
-        public void execute(BoardController boardController, UriRequest uriRequest) {
+        public void execute(BoardController boardController, Request uriRequest) {
             String boardId = uriRequest.getParameter("boardId");
             if (boardId == null) {
                 throw createInvalidParamException();
@@ -38,7 +38,7 @@ public enum BoardCommand {
         }
     }, VIEW("/view") {
         @Override
-        public void execute(BoardController boardController, UriRequest uriRequest) {
+        public void execute(BoardController boardController, Request uriRequest) {
             String boardId = uriRequest.getParameter("boardName");
             if (boardId == null) {
                throw createInvalidParamException();
@@ -57,7 +57,7 @@ public enum BoardCommand {
         return Arrays.stream(values()).filter((value)->path.contains(value.path)).findFirst();
     }
 
-    public abstract void execute(BoardController boardController, UriRequest uriRequest);
+    public abstract void execute(BoardController boardController, Request uriRequest);
 
     private static InvalidParamException createInvalidParamException() {
         return new InvalidParamException("파라미터가 잘못 되었습니다.");

@@ -77,8 +77,9 @@ public class BoardServiceTest {
         private Board board;
 
         @Override
-        public void save(Board board){
+        public Board save(Board board){
             this.board = board;
+            return board;
         }
 
         @Override

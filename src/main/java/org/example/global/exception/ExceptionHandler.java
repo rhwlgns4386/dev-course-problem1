@@ -1,6 +1,6 @@
 package org.example.global.exception;
 
-import org.example.posts.presentation.view.ErrorView;
+import org.example.global.ErrorView;
 
 public class ExceptionHandler {
 
@@ -8,7 +8,11 @@ public class ExceptionHandler {
         ErrorView.renderError(e.getMessage());
     }
 
-    public void handleRuntimeException(RuntimeException runtimeException){
+    public void handleFormatException(Exception e) {
+        ErrorView.renderError(e.getMessage());
+    }
+
+    public void handleRuntimeException(Exception runtimeException){
         ErrorView.renderError("예기치 못한 상황이 발생하였습니다.");
     }
 }

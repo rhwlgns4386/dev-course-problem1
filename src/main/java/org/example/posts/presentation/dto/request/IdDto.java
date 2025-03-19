@@ -11,6 +11,6 @@ public class IdDto {
 
     public Long toLong() {
         validate(id);
-        return Long.valueOf(id.substring(0,id.length()-1));
+        return Long.valueOf(id);
     }
 }
