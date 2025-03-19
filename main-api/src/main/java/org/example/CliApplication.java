@@ -1,12 +1,12 @@
 package org.example;
 
-import org.example.boards.presentation.BoardRequestHandlerFactory;
+import org.example.boards.presentation.command.BoardRequestHandlerFactory;
 import org.example.cli.runner.CliRunner;
 import org.example.dispatcher.ApplicationRunner;
 import org.example.dispatcher.DispatchController;
 import org.example.dispatcher.HandlerMapper;
 import org.example.dispatcher.HandlerMapperFactory;
-import org.example.posts.presentation.CommandRequestHandlerFactory;
+import org.example.posts.presentation.command.CommandRequestHandlerFactory;
 
 public class CliApplication {
 

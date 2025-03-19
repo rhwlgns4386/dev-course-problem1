@@ -1,4 +1,4 @@
-package org.example.posts.presentation.config;
+package org.example.posts.config;
 
 import org.example.posts.presentation.controller.PostsController;
 

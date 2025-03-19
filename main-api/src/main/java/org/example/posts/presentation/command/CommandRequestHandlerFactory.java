@@ -1,9 +1,9 @@
-package org.example.posts.presentation;
+package org.example.posts.presentation.command;
 
 import org.example.dispatcher.RequestHandler;
 import org.example.global.exception.ExceptionHandler;
-import org.example.posts.presentation.config.DefaultPostsConfig;
-import org.example.posts.presentation.config.PostsConfig;
+import org.example.posts.config.DefaultPostsConfig;
+import org.example.posts.config.PostsConfig;
 
 public class CommandRequestHandlerFactory {
     private static PostsConfig postsConfig = new DefaultPostsConfig();

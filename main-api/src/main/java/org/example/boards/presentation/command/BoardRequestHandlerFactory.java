@@ -1,4 +1,4 @@
-package org.example.boards.presentation;
+package org.example.boards.presentation.command;
 
 import org.example.boards.config.BoardConfig;
 import org.example.dispatcher.RequestHandler;

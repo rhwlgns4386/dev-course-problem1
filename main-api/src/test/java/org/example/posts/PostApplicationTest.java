@@ -7,8 +7,8 @@ import org.example.cli.test.CliApplicationTest;
 import org.example.posts.domain.entity.Post;
 import org.example.posts.domain.service.PostsRepository;
 import org.example.posts.persistance.InMemoryPostsRepository;
-import org.example.posts.presentation.CommandRequestHandlerFactory;
-import org.example.posts.presentation.config.DefaultPostsConfig;
+import org.example.posts.presentation.command.CommandRequestHandlerFactory;
+import org.example.posts.config.DefaultPostsConfig;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +40,7 @@ public class PostApplicationTest extends CliApplicationTest {
     @Test
     void 숫자가아닌_파라미터_예외() {
         run(() -> {
-            in(input -> input.command("/posts/add?bordId=1번"));
+            in(input -> input.command("/posts/add?boardId=1번"));
             CliApplication.main(new String[]{});
         });
 
@@ -54,7 +54,7 @@ public class PostApplicationTest extends CliApplicationTest {
         String title = "제목1";
         String content = "내용1";
         run(() -> {
-            in(input -> input.command("/posts/add?bordId=1").input(title, content));
+            in(input -> input.command("/posts/add?boardId=1").input(title, content));
             CliApplication.main(new String[]{});
         });
 
@@ -68,7 +68,7 @@ public class PostApplicationTest extends CliApplicationTest {
     void 게시글_작성_예외() {
 
         run(() -> {
-            in(input -> input.command("/posts/add?bordId=1").input(" ", " "));
+            in(input -> input.command("/posts/add?boardId=1").input(" ", " "));
             CliApplication.main(new String[]{});
         });
 
@@ -83,7 +83,7 @@ public class PostApplicationTest extends CliApplicationTest {
         POSTS_REPOSITORY.save(post1);
 
         run(() -> {
-            in(input -> input.command("/posts/add?bordId=1").input("1번", " ", " "));
+            in(input -> input.command("/posts/add?boardId=1").input("1번", " ", " "));
             CliApplication.main(new String[]{});
         });
 

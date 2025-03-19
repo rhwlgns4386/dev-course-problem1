@@ -6,7 +6,7 @@ import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.entity.Title;
 import org.example.boards.domain.service.BoardRepository;
 import org.example.boards.persistance.InMemoryBoardRepository;
-import org.example.boards.presentation.BoardRequestHandlerFactory;
+import org.example.boards.presentation.command.BoardRequestHandlerFactory;
 import org.example.cli.test.CliApplicationTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

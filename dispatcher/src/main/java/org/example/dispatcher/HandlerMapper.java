@@ -1,7 +1,7 @@
 package org.example.dispatcher;
 
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.excepthion.RequestNotMatchedException;
+import org.example.dispatcher.exception.RequestNotMatchedException;
 
 import java.util.List;
 
