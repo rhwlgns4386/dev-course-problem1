@@ -11,6 +11,7 @@ import org.example.article.domain.entity.Article;
 import org.example.article.domain.exeption.EntityCreationException;
 import org.example.article.domain.exeption.EntityNotFoundException;
 import org.example.article.domain.service.ArticleService;
+import org.example.global.exception.PresentationException;
 
 public class CommandController {
 
@@ -80,6 +81,8 @@ public class CommandController {
             articleService.validateContainsId(id.toLong());
         }catch (EntityNotFoundException e){
             articleNotFoundException(id, e);
+        }catch (IllegalArgumentException e){
+            throw new PresentationException("게시글은 제목과 내용이 필수 입니다.",e);
         }
     }
 
@@ -89,10 +92,12 @@ public class CommandController {
             OutputView.renderUpdate(id.toLong());
         }catch (EntityNotFoundException e){
             articleNotFoundException(id, e);
+        }catch (IllegalArgumentException e){
+            throw new PresentationException("게시글은 제목과 내용이 필수 입니다.",e);
         }
     }
 
-    private static void articleNotFoundException(IdDto id, EntityNotFoundException e) {
+    private static void articleNotFoundException(IdDto id, RuntimeException e) {
         throw new ArticleNotFoundException(String.format("%s번 게시글은 존재하지 않습니다.", id.toLong()), e);
     }
 

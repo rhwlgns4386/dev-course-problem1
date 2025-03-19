@@ -1,20 +1,20 @@
 package org.example.cli.runner;
 
 public final class ApplicationStateHolder {
-    private static boolean run = true;
+    private static  ApplicationState applicationState = new BooleanApplicationState();
 
     private ApplicationStateHolder() {
     }
 
-    public static boolean isRun(){
-        return run;
+    public static void setApplicationState(ApplicationState applicationState) {
+        ApplicationStateHolder.applicationState = applicationState;
     }
 
-    public static void start(){
-        run = true;
+    public static boolean isRun(){
+        return applicationState.isRun();
     }
 
     public static void stop(){
-        run = false;
+        applicationState.stop();
     }
 }

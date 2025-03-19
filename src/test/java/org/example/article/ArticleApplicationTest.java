@@ -2,6 +2,7 @@ package org.example.article;
 
 import org.example.ApplicationTest;
 import org.example.CliApplication;
+import org.example.CliApplicationTest;
 import org.example.article.presentation.CommandRequestHandlerFactory;
 import org.example.cli.runner.ApplicationStateHolder;
 import org.example.article.presentation.config.DefaultCommandConfig;
@@ -17,7 +18,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CliApplicationTest extends ApplicationTest {
+public class ArticleApplicationTest extends CliApplicationTest {
 
     private final static ArticleRepository articleRepository = new InMemoryArticleRepository();
 
@@ -31,7 +32,6 @@ public class CliApplicationTest extends ApplicationTest {
     @BeforeEach
     protected void init() {
         articleRepository.clear();
-        ApplicationStateHolder.start();
         super.init();
     }
 
@@ -39,7 +39,7 @@ public class CliApplicationTest extends ApplicationTest {
     @ValueSource(strings = {"종료", "exit", "EXIT"})
     void 종료_명령어를_입력시_종료된다(String command) {
         run(() -> {
-            in(command);
+            in(input->input.command(command));
             CliApplication.main(new String[]{});
         });
         assertThat(out()).contains("프로그램이 종료됩니다.");
@@ -54,7 +54,7 @@ public class CliApplicationTest extends ApplicationTest {
         articleRepository.save(article2);
 
         run(() -> {
-            in(command,"종료");
+            in(input->input.command(command));
             CliApplication.main(new String[]{});
         });
 
@@ -74,9 +74,8 @@ public class CliApplicationTest extends ApplicationTest {
     void 게시글_작성(String command) {
         String title = "제목1";
         String content = "내용1";
-
         run(() -> {
-            in(command,title,content,"목록","종료");
+            in(input->input.command(command).input(title,content).command("목록"));
             CliApplication.main(new String[]{});
         });
 
@@ -92,7 +91,22 @@ public class CliApplicationTest extends ApplicationTest {
     void 게시글_작성_예외() {
 
         run(() -> {
-            in("작성","","","종료");
+            in(input->input.command("수정").input("",""));
+            CliApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "게시글은 제목과 내용이 필수 입니다."
+        );
+    }
+
+    @Test
+    void 게시글_작성_예외2() {
+        Article article1 = new Article("제목1", "내용1");
+        articleRepository.save(article1);
+
+        run(() -> {
+            in(input->input.command("수정").input("1번"," "," "));
             CliApplication.main(new String[]{});
         });
 
@@ -107,9 +121,8 @@ public class CliApplicationTest extends ApplicationTest {
         Article article2 = new Article("제목2", "내용2");
         articleRepository.save(article1);
         articleRepository.save(article2);
-
         run(() -> {
-            in("조회","1번","조회","2번","종료");
+            in(input->input.command("조회").input("1번").command("조회").input("2번"));
             CliApplication.main(new String[]{});
         });
 
@@ -129,7 +142,7 @@ public class CliApplicationTest extends ApplicationTest {
         articleRepository.save(article1);
 
         run(() -> {
-            in("조회","2번","종료");
+            in((input)->input.command("조회").input("2번"));
             CliApplication.main(new String[]{});
         });
 
@@ -145,7 +158,7 @@ public class CliApplicationTest extends ApplicationTest {
         articleRepository.save(article1);
 
         run(() -> {
-            in(command,"1번","종료");
+            in((input)->input.command(command).input("1번"));
             CliApplication.main(new String[]{});
         });
 
@@ -161,7 +174,7 @@ public class CliApplicationTest extends ApplicationTest {
         articleRepository.save(article1);
 
         run(() -> {
-            in("삭제","2번","종료");
+            in(inputBuilder -> inputBuilder.command("삭제").input("2번"));
             CliApplication.main(new String[]{});
         });
 
@@ -178,7 +191,7 @@ public class CliApplicationTest extends ApplicationTest {
         articleRepository.save(article1);
 
         run(() -> {
-            in(command,"1번","제목2","내용1","종료");
+            in((input)->input.command(command).input("1번","제목2","내용1"));
             CliApplication.main(new String[]{});
         });
 
@@ -195,7 +208,7 @@ public class CliApplicationTest extends ApplicationTest {
     void 없는_게시글_수정() {
 
         run(() -> {
-            in("수정","1번","종료");
+            in((input -> input.command("수정").input("1번")));
             CliApplication.main(new String[]{});
         });
 

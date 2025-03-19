@@ -2,6 +2,7 @@ package org.example.boards;
 
 import org.example.ApplicationTest;
 import org.example.CliApplication;
+import org.example.CliApplicationTest;
 import org.example.boards.config.BoardConfig;
 import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.entity.Title;
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BoardApplicationTest extends ApplicationTest {
+public class BoardApplicationTest extends CliApplicationTest {
 
     private static final BoardRepository boardRepository = new InMemoryBoardRepository();
 
@@ -29,7 +30,6 @@ public class BoardApplicationTest extends ApplicationTest {
 
     @BeforeEach
     public void initRepository(){
-        ApplicationStateHolder.start();
         boardRepository.clear();
     }
 
@@ -37,7 +37,7 @@ public class BoardApplicationTest extends ApplicationTest {
     void 게시판생성(){
         String title = "test";
         run(()->{
-            in("/boards/add",title,"exit");
+            in(input->input.command("/boards/add").input(title));
             CliApplication.main(new String[]{});
         });
         assertThat(out()).contains("제목 : ");
@@ -52,7 +52,7 @@ public class BoardApplicationTest extends ApplicationTest {
 
         String title = "test";
         run(()->{
-            in("/boards/edit?boardId=1",title,"exit");
+            in(input->input.command("/boards/edit?boardId=1").input(title));
             CliApplication.main(new String[]{});
         });
         assertThat(out()).contains("제목 : ");
@@ -66,7 +66,7 @@ public class BoardApplicationTest extends ApplicationTest {
         boardRepository.save(new Board(new Title("test1")));
 
         run(()->{
-            in("/boards/remove?boardId=1","exit");
+            in(input->input.command("/boards/remove?boardId=1"));
             CliApplication.main(new String[]{});
         });
         Optional<Board> board = boardRepository.findById(1L);
@@ -79,7 +79,7 @@ public class BoardApplicationTest extends ApplicationTest {
         boardRepository.save(new Board(title));
 
         run(()->{
-            in("/boards/view?boardName=1","exit");
+            in(input->input.command("/boards/view?boardName=1"));
             CliApplication.main(new String[]{});
         });
         String format = title.createAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -92,7 +92,7 @@ public class BoardApplicationTest extends ApplicationTest {
         boardRepository.save(new Board(title));
 
         run(()->{
-            in("/boards/view?boardName=2&boardName=1","exit");
+            in(input->input.command("/boards/view?boardName=2&boardName=1"));
             CliApplication.main(new String[]{});
         });
         String format = title.createAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -102,7 +102,7 @@ public class BoardApplicationTest extends ApplicationTest {
     @Test
     void 없는_명령어_사용(){
         run(()->{
-            in("/boards/view","exit");
+            in(input->input.command("/boards/view"));
             CliApplication.main(new String[]{});
         });
         assertThat(out()).contains("파라미터가 잘못 되었습니다.");
@@ -111,7 +111,7 @@ public class BoardApplicationTest extends ApplicationTest {
     @Test
     void 없는_데이터_조회(){
         run(()->{
-            in("/boards/view?boardName=1","exit");
+            in(input->input.command("/boards/view?boardName=1"));
             CliApplication.main(new String[]{});
         });
         assertThat(out()).contains("1번 게시판은 존재하지 않습니다.");
