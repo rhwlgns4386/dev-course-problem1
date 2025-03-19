@@ -1,6 +1,6 @@
 package org.example.global.exception;
 
-import org.example.global.ErrorView;
+import org.example.cli.view.ErrorView;
 
 public class ExceptionHandler {
 
