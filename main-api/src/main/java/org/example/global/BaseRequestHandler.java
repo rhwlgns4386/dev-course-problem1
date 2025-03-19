@@ -26,7 +26,6 @@ public abstract class BaseRequestHandler implements RequestHandler {
     private void handleException(Exception e) {
         if(e instanceof PresentationException){
             exceptionHandler.handlePresentationException((PresentationException) e);
-            return;
         }else if(e instanceof FormatException){
             exceptionHandler.handleFormatException(e);
         }else{

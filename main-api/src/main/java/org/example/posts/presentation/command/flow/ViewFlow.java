@@ -5,7 +5,6 @@ import org.example.dispatcher.dto.Request;
 import org.example.global.exception.InvalidParamException;
 import org.example.posts.presentation.command.PostsCommand;
 import org.example.posts.presentation.controller.PostsController;
-import org.example.posts.presentation.dto.request.PostInfoDto;
 
 import static org.example.boards.presentation.command.ValidationLongConverter.convert;
 

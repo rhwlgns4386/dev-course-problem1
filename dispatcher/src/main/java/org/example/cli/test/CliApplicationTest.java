@@ -23,7 +23,7 @@ public class CliApplicationTest extends ApplicationTest{
     }
 
     public static class InputBuilder{
-        private List<String> input = new ArrayList<>();
+        private final List<String> input = new ArrayList<>();
         private int commandCount = 0;
         public InputBuilder command(String command){
             commandCount++;

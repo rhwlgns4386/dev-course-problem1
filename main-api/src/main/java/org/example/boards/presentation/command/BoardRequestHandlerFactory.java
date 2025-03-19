@@ -5,13 +5,8 @@ import org.example.dispatcher.RequestHandler;
 import org.example.global.exception.ExceptionHandler;
 
 public class BoardRequestHandlerFactory {
-    private static BoardConfig config = new BoardConfig();
-
-    public static void init(BoardConfig config) {
-        BoardRequestHandlerFactory.config = config;
-    }
 
     public static RequestHandler create(){
-        return new BoardRequestHandlerAdaptor(config.boardController(),new ExceptionHandler());
+        return new BoardRequestHandlerAdaptor(BoardConfig.boardController(),new ExceptionHandler());
     }
 }

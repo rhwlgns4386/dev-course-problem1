@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class PostServiceTest {
 
     private PostsRepository postsRepository;
-    private static BoardRepository boardRepository = new InMemoryBoardRepository();
+    private final static BoardRepository boardRepository = new InMemoryBoardRepository();
     private PostsService postsService;
     private static Board board;
 
