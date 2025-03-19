@@ -23,7 +23,7 @@ public class BoardApplicationTest extends CliApplicationTest {
 
     @BeforeAll
     public static void initConfig(){
-        BoardRequestHandlerFactory.init(new TestConfig());
+        BoardConfig.setBoardRepository(boardRepository);
     }
 
     @BeforeEach
@@ -125,13 +125,5 @@ public class BoardApplicationTest extends CliApplicationTest {
             CliApplication.main(new String[]{});
         });
         assertThat(out()).contains("1번 게시판은 존재하지 않습니다.");
-    }
-
-    private static class TestConfig extends BoardConfig {
-
-        @Override
-        public BoardRepository boardRepository () {
-            return boardRepository;
-        }
     }
 }

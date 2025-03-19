@@ -7,15 +7,32 @@ import org.example.boards.presentation.controller.BoardController;
 
 public class BoardConfig {
 
-    public BoardController boardController(){
-        return new BoardController(boardService());
+    private static BoardRepository boardRepository;
+    private static BoardService boardService;
+    private static BoardController boardController;
+
+    public static BoardController boardController(){
+        if(boardController == null){
+            boardController = new BoardController(boardService());
+        }
+        return boardController;
     }
 
-    public BoardService boardService(){
-        return new BoardService(boardRepository());
+    public static BoardService boardService(){
+        if(boardService == null){
+            boardService = new BoardService(boardRepository());
+        }
+        return boardService;
     }
 
-    public BoardRepository boardRepository(){
-        return new InMemoryBoardRepository();
+    public static BoardRepository boardRepository(){
+        if(boardRepository == null){
+            boardRepository = new InMemoryBoardRepository();
+        }
+        return boardRepository;
+    }
+
+    public static void setBoardRepository(BoardRepository boardRepository){
+        BoardConfig.boardRepository = boardRepository;
     }
 }

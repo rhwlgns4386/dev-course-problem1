@@ -1,7 +1,7 @@
 package org.example.posts.config;
 
+import org.example.boards.config.BoardConfig;
 import org.example.boards.domain.service.BoardRepository;
-import org.example.boards.persistance.InMemoryBoardRepository;
 import org.example.posts.domain.service.PostsRepository;
 import org.example.posts.domain.service.PostsService;
 import org.example.posts.persistance.InMemoryPostsRepository;
@@ -23,6 +23,6 @@ public class DefaultPostsConfig implements PostsConfig {
     }
 
     public BoardRepository boardRepository() {
-        return new InMemoryBoardRepository();
+        return BoardConfig.boardRepository();
     }
 }

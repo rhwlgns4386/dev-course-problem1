@@ -11,8 +11,8 @@ public final class OutputView {
     private static final DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static void render(Post post) {
         System.out.printf("%s번 게시글\n", post.id());
-        System.out.printf("작성일 : %s", post.createdDate().format(pattern));
-        System.out.printf("수정일 : %s", post.updatedDate().format(pattern));
+        System.out.printf("작성일 : %s\n", post.createdDate().format(pattern));
+        System.out.printf("수정일 : %s\n", post.updatedDate().format(pattern));
         System.out.printf("제목 : %s\n", post.title());
         System.out.printf("내용 : %s\n", post.content());
     }
