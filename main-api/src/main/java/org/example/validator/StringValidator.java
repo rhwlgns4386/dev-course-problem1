@@ -4,11 +4,12 @@ import java.util.Objects;
 
 public final class StringValidator {
 
-    public static void validate(String value) throws IllegalArgumentException {
+    public static String validate(String value) throws IllegalArgumentException {
         try {
             if (isEmpty(Objects.requireNonNull(value))) {
                 throw exception();
             }
+            return value;
         } catch (NullPointerException e) {
             throw exception();
         }
