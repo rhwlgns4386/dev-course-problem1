@@ -8,6 +8,7 @@ import org.example.cli.test.CliApplicationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -75,15 +76,26 @@ public class AccountApplicationTest extends CliApplicationTest {
         User user = userRepository.save(new User(new UserName("test"), new Email("email@naver.com"), new Password("password"),new NickName("test")));
         String updatePassword = "updatePassword";
         String email = "updateTest@naver.com";
+        LocalDateTime now = LocalDateTime.now();
         run(()->{
             in(input->input.command("/accounts/edit?accountId="+user.id()).input(updatePassword,email));
             CliApplication.main(new String[]{});
         });
 
         assertThat(out()).contains(
-                user.id()+"번 회원이 삭제 되었습니다."
+                user.id() + "번 회원",
+                "계정 : " + user.userName(),
+                "이메일 : " + email,
+                "가입일 : " + user.createDate().format(FORMATTER)
         );
-        Optional<User> result = userRepository.findById(user.id());
-        assertThat(result).isEmpty();
+
+        Optional<User> optionalUser = userRepository.findById(user.id());
+        assertThat(optionalUser).isPresent();
+        optionalUser.ifPresent(u -> {
+            assertThat(u).isEqualTo(user);
+            assertThat(u.password()).isEqualTo(updatePassword);
+            assertThat(u.email()).isEqualTo(email);
+            assertThat(u.updateDate()).isAfterOrEqualTo(now);
+        });
     }
 }
