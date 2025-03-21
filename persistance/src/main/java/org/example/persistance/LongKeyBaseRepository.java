@@ -24,12 +24,12 @@ public class LongKeyBaseRepository<E> implements BaseRepository<Long,E>{
     }
 
     @Override
-    public E save(E entity) throws IdFieldNotFoundException {
+    public E save(E element) throws IdFieldNotFoundException {
         try {
             Long id = idGenerator.next();
-            idSetter.setId(entity,id);
-            store.put(id, entity);
-            return entity;
+            idSetter.setId(element,id);
+            store.put(id, element);
+            return element;
         }catch (IdFieldNotFoundException e){
             idGenerator.rollback();
             throw e;

@@ -1,4 +1,4 @@
-package org.example.posts.domain.exeption;
+package org.example.global.exception;
 
 public class EntityNotFoundException extends BusinessException {
     public EntityNotFoundException(String message) {

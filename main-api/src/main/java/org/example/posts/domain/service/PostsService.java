@@ -4,8 +4,8 @@ import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.service.BoardRepository;
 import org.example.posts.domain.entity.Post;
 import org.example.posts.domain.entity.Posts;
-import org.example.posts.domain.exeption.EntityCreationException;
-import org.example.posts.domain.exeption.EntityNotFoundException;
+import org.example.global.exception.EntityCreationException;
+import org.example.global.exception.EntityNotFoundException;
 
 public class PostsService {
 

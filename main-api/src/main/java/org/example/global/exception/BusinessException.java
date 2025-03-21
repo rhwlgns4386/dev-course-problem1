@@ -1,4 +1,4 @@
-package org.example.posts.domain.exeption;
+package org.example.global.exception;
 
 public class BusinessException extends RuntimeException {
     public BusinessException(String message) {

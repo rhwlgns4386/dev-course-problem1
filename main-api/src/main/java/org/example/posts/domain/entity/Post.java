@@ -2,7 +2,7 @@ package org.example.posts.domain.entity;
 
 import org.example.boards.domain.entity.Board;
 import org.example.persistance.anotaion.Id;
-import org.example.posts.domain.exeption.EntityCreationException;
+import org.example.global.exception.EntityCreationException;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

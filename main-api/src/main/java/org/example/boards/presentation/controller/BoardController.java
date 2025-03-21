@@ -5,7 +5,7 @@ import org.example.boards.domain.service.BoardService;
 import org.example.boards.presentation.exception.BoardNotFoundException;
 import org.example.boards.presentation.view.InputView;
 import org.example.boards.presentation.view.OutputView;
-import org.example.posts.domain.exeption.EntityNotFoundException;
+import org.example.global.exception.EntityNotFoundException;
 
 public class BoardController {
 

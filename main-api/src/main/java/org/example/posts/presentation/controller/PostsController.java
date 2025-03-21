@@ -2,8 +2,8 @@ package org.example.posts.presentation.controller;
 
 import org.example.global.exception.PresentationException;
 import org.example.posts.domain.entity.Post;
-import org.example.posts.domain.exeption.EntityCreationException;
-import org.example.posts.domain.exeption.EntityNotFoundException;
+import org.example.global.exception.EntityCreationException;
+import org.example.global.exception.EntityNotFoundException;
 import org.example.posts.domain.service.PostsService;
 import org.example.posts.presentation.dto.request.PostInfoDto;
 import org.example.posts.presentation.exception.PostNotFoundException;

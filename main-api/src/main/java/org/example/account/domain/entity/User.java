@@ -11,18 +11,23 @@ public class User {
     private Long id;
 
     private UserName userName ;
+
     private Email email;
     private Password password;
-
     private LocalDateTime createDate;
-    private LocalDateTime updateDate;
 
-    public User(UserName userName, Email email, Password password) {
+    private LocalDateTime updateDate;
+    public User(Long id, UserName userName, Email email, Password password) {
+        this.id = id;
         this.userName = Objects.requireNonNull(userName);
         this.email = Objects.requireNonNull(email);
         this.password = Objects.requireNonNull(password);
         this.createDate = LocalDateTime.now();
         this.updateDate = LocalDateTime.now();
+    }
+
+    public User(UserName userName, Email email, Password password) {
+        this(null, userName, email, password);
     }
 
     public void update(Email email, Password password) {
@@ -32,6 +37,10 @@ public class User {
         this.email = email;
         this.password = password;
         this.updateDate = LocalDateTime.now();
+    }
+
+    public Long id() {
+        return id;
     }
 
     public String email() {

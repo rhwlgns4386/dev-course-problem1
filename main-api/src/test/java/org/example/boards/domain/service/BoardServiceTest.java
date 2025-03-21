@@ -2,7 +2,7 @@ package org.example.boards.domain.service;
 
 import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.entity.Title;
-import org.example.posts.domain.exeption.EntityNotFoundException;
+import org.example.global.exception.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -77,9 +77,9 @@ public class BoardServiceTest {
         private Board board;
 
         @Override
-        public Board save(Board board){
-            this.board = board;
-            return board;
+        public Board save(Board element){
+            this.board = element;
+            return element;
         }
 
         @Override
