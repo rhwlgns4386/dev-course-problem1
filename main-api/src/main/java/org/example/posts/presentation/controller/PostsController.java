@@ -25,7 +25,8 @@ public class PostsController {
 
     public void write(Long boardId, PostInfoDto postInfoDto) {
         try {
-            postsService.save(boardId, postInfoDto.title(), postInfoDto.content());
+            Long id = postsService.save(boardId, postInfoDto.title(), postInfoDto.content());
+            lookup(id);
         } catch (EntityCreationException e) {
             throw new WriteException("게시글은 제목과 내용이 필수 입니다.", e);
         }
