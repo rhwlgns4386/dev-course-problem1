@@ -14,4 +14,8 @@ public class OutputView {
         System.out.printf("이메일 : %s\n",user.email());
         System.out.printf("가입일 : %s\n",user.createDate().format(FORMATTER));
     }
+
+    public static void renderDelete(Long id) {
+        System.out.printf("%s번 회원이 삭제 되었습니다.\n",id);
+    }
 }

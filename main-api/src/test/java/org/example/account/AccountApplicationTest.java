@@ -3,7 +3,7 @@ package org.example.account;
 import org.example.CliApplication;
 import org.example.account.domain.entity.*;
 import org.example.account.domain.service.UserRepository;
-import org.example.account.persentation.config.AccountConfig;
+import org.example.account.config.AccountConfig;
 import org.example.cli.test.CliApplicationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,6 +63,26 @@ public class AccountApplicationTest extends CliApplicationTest {
             CliApplication.main(new String[]{});
         });
 
+        assertThat(out()).contains(
+                user.id()+"번 회원이 삭제 되었습니다."
+        );
+        Optional<User> result = userRepository.findById(user.id());
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    void 사용자_수정(){
+        User user = userRepository.save(new User(new UserName("test"), new Email("email@naver.com"), new Password("password"),new NickName("test")));
+        String updatePassword = "updatePassword";
+        String email = "updateTest@naver.com";
+        run(()->{
+            in(input->input.command("/accounts/edit?accountId="+user.id()).input(updatePassword,email));
+            CliApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                user.id()+"번 회원이 삭제 되었습니다."
+        );
         Optional<User> result = userRepository.findById(user.id());
         assertThat(result).isEmpty();
     }

@@ -6,7 +6,8 @@ import java.util.Optional;
 public enum Command {
 
     DETAIL("/detail"),
-    SIGNUP("/signup");
+    SIGNUP("/signup"),
+    REMOVE("/remove");
 
     private final String path;
 

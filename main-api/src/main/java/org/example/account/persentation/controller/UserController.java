@@ -27,4 +27,9 @@ public class UserController {
         Long id = userService.save(userInfoDto.toUserName(), userInfoDto.email(), userInfoDto.password(), userInfoDto.nickName());
         load(id);
     }
+
+    public void remove(Long id) {
+        userService.remove(id);
+        OutputView.renderDelete(id);
+    }
 }

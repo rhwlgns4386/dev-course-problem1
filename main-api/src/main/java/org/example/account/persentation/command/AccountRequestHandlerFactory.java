@@ -1,6 +1,6 @@
 package org.example.account.persentation.command;
 
-import org.example.account.persentation.config.AccountConfig;
+import org.example.account.config.AccountConfig;
 import org.example.dispatcher.RequestHandler;
 import org.example.global.exception.ExceptionHandler;
 

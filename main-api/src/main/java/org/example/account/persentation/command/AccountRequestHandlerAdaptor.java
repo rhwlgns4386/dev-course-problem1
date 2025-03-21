@@ -1,6 +1,7 @@
 package org.example.account.persentation.command;
 
 import org.example.account.persentation.command.flow.DetailsFlow;
+import org.example.account.persentation.command.flow.RemoveFlow;
 import org.example.account.persentation.command.flow.SingupFlow;
 import org.example.account.persentation.controller.UserController;
 import org.example.cli.CommandFlow;
@@ -22,7 +23,7 @@ public class AccountRequestHandlerAdaptor extends BaseRequestHandler {
     public AccountRequestHandlerAdaptor(UserController userController, ExceptionHandler exceptionHandler) {
         super(exceptionHandler);
         this.userController = userController;
-        List<CommandFlow<Command, UserController>> commandFlows = List.of(new DetailsFlow(), new SingupFlow());
+        List<CommandFlow<Command, UserController>> commandFlows = List.of(new DetailsFlow(), new SingupFlow(),new RemoveFlow());
         this.finder = new CommandFlowFinder<>(commandFlows);
     }
 

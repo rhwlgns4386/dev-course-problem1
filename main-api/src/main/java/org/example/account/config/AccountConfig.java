@@ -1,4 +1,4 @@
-package org.example.account.persentation.config;
+package org.example.account.config;
 
 import org.example.account.domain.service.UserRepository;
 import org.example.account.domain.service.UserService;
