@@ -6,6 +6,7 @@ import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.Response;
 import org.example.global.exception.InvalidParamException;
+import org.example.validator.StringValidator;
 
 import static org.example.boards.presentation.command.ValidationLongConverter.convert;
 
@@ -20,10 +21,10 @@ public class ViewFlow extends CommandFlow<BoardCommand> {
 
     @Override
     public void execute(Request request, Response response) {
-        String boardId = request.getParameter("boardName");
+        String name = request.getParameter("boardName");
         try {
-            long id = convert(boardId);
-            controller.load(id);
+            StringValidator.validate(name);
+            controller.load(name);
         }catch (NullPointerException e){
             throw new InvalidParamException("파라미터가 잘못 되었습니다.");
         }

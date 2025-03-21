@@ -4,6 +4,8 @@ import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.entity.Title;
 import org.example.global.exception.EntityNotFoundException;
 
+import java.util.List;
+
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -12,8 +14,9 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    public void save(Title title) {
-        boardRepository.save(new Board(title));
+    public Long save(Title title) {
+        Board board = boardRepository.save(new Board(title));
+        return board.id();
     }
 
     public void update(Long id, Title title) throws EntityNotFoundException {
@@ -28,6 +31,10 @@ public class BoardService {
 
     public Board load(Long id) throws EntityNotFoundException{
         return boardRepository.findById(id).orElseThrow(BoardService::entityNotFoundException);
+    }
+
+    public List<Board> load(String name) throws EntityNotFoundException{
+        return boardRepository.findByName(name);
     }
 
     public void validateContainsId(Long id) throws EntityNotFoundException{

@@ -84,7 +84,7 @@ public class BoardApplicationTest extends CliApplicationTest {
         boardRepository.save(new Board(title));
 
         run(()->{
-            in(input->input.command("/boards/view?boardName=1"));
+            in(input->input.command("/boards/view?boardName=test1"));
             CliApplication.main(new String[]{});
         });
         String format = title.createAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

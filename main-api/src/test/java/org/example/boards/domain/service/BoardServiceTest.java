@@ -93,6 +93,11 @@ public class BoardServiceTest {
         }
 
         @Override
+        public List<Board> findByName(String name) {
+            return List.of();
+        }
+
+        @Override
         public Optional<Board> findById(Long id){
             if(id != null && id == 1L){
                 return Optional.ofNullable(board);

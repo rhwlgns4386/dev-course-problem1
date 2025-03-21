@@ -20,7 +20,8 @@ public class BoardController {
     }
 
     public void write(String title){
-        this.boardService.save(new Title(title));
+        Long id = this.boardService.save(new Title(title));
+        load(id);
     }
 
     public void containId(Long id) {
@@ -34,6 +35,7 @@ public class BoardController {
     public void edit(Long id, String title) {
         try {
             boardService.update(id, new Title(title));
+            load(id);
         }catch (EntityNotFoundException e){
             boardNotFoundException(id, e);
         }
@@ -42,6 +44,7 @@ public class BoardController {
     public void remove(Long id) {
         try {
             boardService.delete(id);
+            OutputView.renderSuccessDelete();
         } catch (EntityNotFoundException e) {
             boardNotFoundException(id, e);
         }
@@ -55,7 +58,19 @@ public class BoardController {
         }
     }
 
+    public void load(String name) {
+        try {
+            OutputView.renderBoardAll(boardService.load(name));
+        }catch (EntityNotFoundException e){
+            boardNotFoundException(e);
+        }
+    }
+
     private static void boardNotFoundException(Long id, EntityNotFoundException e) {
         throw new BoardNotFoundException(String.format("%s번 게시판은 존재하지 않습니다.", id), e);
+    }
+
+    private static void boardNotFoundException(EntityNotFoundException e) {
+        throw new BoardNotFoundException("게시판은 존재하지 않습니다.");
     }
 }
