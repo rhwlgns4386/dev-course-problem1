@@ -4,10 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
-public class AccountTest {
+public class UserTest {
 
     @Test
     void 회원생성() {
@@ -30,7 +29,7 @@ public class AccountTest {
     void 회원정보_수정() {
         UserName userName = new UserName("userName");
         NickName nickName = new NickName("test");
-        User user = new User(userName, new Email("test@naver.com"), new Password("programmers"),nickName);
+        User user = new User(userName, new Email("test@naver.com"), new Password("programmers"), nickName);
         LocalDateTime now = LocalDateTime.now();
 
         Email email = new Email("test2@naver.com");
@@ -50,5 +49,23 @@ public class AccountTest {
         User user = new User(userName, new Email("test@naver.com"), new Password("programmers"), new NickName("test"));
 
         assertThatThrownBy(() -> user.update(null, null)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 회원정보검증() {
+        UserName userName = new UserName("userName");
+        Password password = new Password("programmers");
+        User user = new User(userName, new Email("test@naver.com"), password, new NickName("test"));
+
+        assertThat(user.samePassword(password)).isTrue();
+    }
+
+    @Test
+    void 회원정보검증_시_다를경우_예외() {
+        UserName userName = new UserName("userName");
+        Password password = new Password("programmers");
+        User user = new User(userName, new Email("test@naver.com"), password, new NickName("test"));
+
+        assertThat(user.samePassword(new Password("2"))).isFalse();
     }
 }

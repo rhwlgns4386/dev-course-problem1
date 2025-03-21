@@ -2,6 +2,8 @@ package org.example.account.domain.entity;
 
 import org.example.validator.StringValidator;
 
+import java.util.Objects;
+
 public class Password {
 
     private final String value;
@@ -13,5 +15,17 @@ public class Password {
 
     public String toStringValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Password password = (Password) o;
+        return Objects.equals(value, password.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
     }
 }

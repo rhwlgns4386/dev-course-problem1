@@ -1,8 +1,9 @@
 package org.example.cli;
 
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 
-public abstract class CommandFlow<K,C> {
+public abstract class CommandFlow<K> {
     private final K key;
 
     public CommandFlow(K key) {
@@ -14,5 +15,5 @@ public abstract class CommandFlow<K,C> {
     }
 
 
-    public abstract void execute(C controller, Request request);
+    public abstract void execute(Request request, Response response);
 }

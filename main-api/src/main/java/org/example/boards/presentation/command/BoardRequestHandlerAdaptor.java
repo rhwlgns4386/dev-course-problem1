@@ -8,6 +8,7 @@ import org.example.boards.presentation.controller.BoardController;
 import org.example.cli.CommandFlow;
 import org.example.cli.CommandFlowFinder;
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 import org.example.global.BaseRequestHandler;
 import org.example.global.exception.CommandNotFoundException;
 import org.example.global.exception.ExceptionHandler;
@@ -18,13 +19,11 @@ import java.util.Optional;
 public class BoardRequestHandlerAdaptor extends BaseRequestHandler {
 
     private final String PREFIX = "/boards";
-    private final BoardController boardController;
-    private final CommandFlowFinder<BoardCommand,BoardController> finder;
+    private final CommandFlowFinder<BoardCommand> finder;
 
     public BoardRequestHandlerAdaptor(BoardController boardController, ExceptionHandler exceptionHandler) {
         super(exceptionHandler);
-        this.boardController = boardController;
-        this.finder = new CommandFlowFinder<>(List.of(new AddFlow(), new EditFlow(), new RemoveFlow(),new ViewFlow()));
+        this.finder = new CommandFlowFinder<>(List.of(new AddFlow(boardController), new EditFlow(boardController), new RemoveFlow(boardController), new ViewFlow(boardController)));
     }
 
     @Override
@@ -34,10 +33,10 @@ public class BoardRequestHandlerAdaptor extends BaseRequestHandler {
     }
 
     @Override
-    public void execute(Request commandInput) {
-        BoardCommand command = BoardCommand.findPath(extractCommandString(commandInput)).orElseThrow(()->new CommandNotFoundException("존재하지 않는 명령어 입니다."));
-        Optional<CommandFlow<BoardCommand, BoardController>> flow = finder.find(command);
-        flow.ifPresent(commandFlow -> commandFlow.execute(boardController, commandInput));
+    public void execute(Request request, Response response) throws Exception {
+        BoardCommand command = BoardCommand.findPath(extractCommandString(request)).orElseThrow(() -> new CommandNotFoundException("존재하지 않는 명령어 입니다."));
+        Optional<CommandFlow<BoardCommand>> flow = finder.find(command);
+        flow.ifPresent(commandFlow -> commandFlow.execute(request, response));
     }
 
     private String extractCommandString(Request commandInput) {

@@ -98,4 +98,30 @@ public class AccountApplicationTest extends CliApplicationTest {
             assertThat(u.updateDate()).isAfterOrEqualTo(now);
         });
     }
+
+    @Test
+    void 사용자_로그인(){
+        User user = userRepository.save(new User(new UserName("test"), new Email("email@naver.com"), new Password("password"),new NickName("test")));
+        run(()->{
+            in(input->input.command("/accounts/signin").input(user.userName(),user.password()));
+            CliApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+               "로그인에 성공하셨습니다."
+        );
+    }
+
+    @Test
+    void 사용자_로그아웃(){
+        User user = userRepository.save(new User(new UserName("test"), new Email("email@naver.com"), new Password("password"),new NickName("test")));
+        run(()->{
+            in(input->input.command("/accounts/signin").input(user.userName(),user.password()));
+            CliApplication.main(new String[]{});
+        });
+
+        assertThat(out()).contains(
+                "로그인에 성공하셨습니다."
+        );
+    }
 }

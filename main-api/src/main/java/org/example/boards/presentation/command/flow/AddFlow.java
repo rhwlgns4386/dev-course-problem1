@@ -4,15 +4,19 @@ import org.example.boards.presentation.command.BoardCommand;
 import org.example.boards.presentation.controller.BoardController;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 
-public class AddFlow extends CommandFlow<BoardCommand, BoardController> {
+public class AddFlow extends CommandFlow<BoardCommand> {
 
-    public AddFlow() {
+    private final BoardController controller;
+
+    public AddFlow(BoardController controller) {
         super(BoardCommand.ADD);
+        this.controller = controller;
     }
 
     @Override
-    public void execute(BoardController controller, Request request) {
+    public void execute(Request request, Response response) {
         String title = controller.readBoardName();
         controller.write(title);
     }

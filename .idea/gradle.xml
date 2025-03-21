@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/dispatcher" />
+            <option value="$PROJECT_DIR$/main-api" />
             <option value="$PROJECT_DIR$/persistance" />
           </set>
         </option>

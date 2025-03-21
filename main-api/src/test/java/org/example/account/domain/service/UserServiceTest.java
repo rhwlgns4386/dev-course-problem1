@@ -1,6 +1,7 @@
 package org.example.account.domain.service;
 
 import org.example.account.domain.entity.*;
+import org.example.account.domain.exception.DuplicateUserNameException;
 import org.example.global.exception.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

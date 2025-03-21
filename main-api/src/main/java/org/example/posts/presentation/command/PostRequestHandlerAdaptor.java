@@ -2,6 +2,7 @@ package org.example.posts.presentation.command;
 
 import org.example.cli.CommandFlowFinder;
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 import org.example.global.BaseRequestHandler;
 import org.example.global.exception.CommandNotFoundException;
 import org.example.global.exception.ExceptionHandler;
@@ -16,13 +17,11 @@ import java.util.List;
 public class PostRequestHandlerAdaptor extends BaseRequestHandler {
 
     private final String PREFIX = "/posts";
-    private final PostsController postsController;
-    private final CommandFlowFinder<PostsCommand, PostsController> finder;
+    private final CommandFlowFinder<PostsCommand> finder;
 
     public PostRequestHandlerAdaptor(PostsController postsController, ExceptionHandler exceptionHandler) {
         super(exceptionHandler);
-        this.postsController = postsController;
-        this.finder = new CommandFlowFinder<>(List.of(new AddFlow(), new EditFlow(), new RemoveFlow(), new ViewFlow()));
+        this.finder = new CommandFlowFinder<>(List.of(new AddFlow(postsController), new EditFlow(postsController), new RemoveFlow(postsController), new ViewFlow(postsController)));
     }
 
     @Override
@@ -32,9 +31,9 @@ public class PostRequestHandlerAdaptor extends BaseRequestHandler {
     }
 
     @Override
-    public void execute(Request commandInput) {
-        PostsCommand postsCommand = PostsCommand.findPath(extractCommandString(commandInput)).orElseThrow(() -> new CommandNotFoundException("존재하지 않는 명령어 입니다."));
-        finder.find(postsCommand).ifPresent(commandFlow -> commandFlow.execute(postsController, commandInput));
+    public void execute(Request request, Response response) {
+        PostsCommand postsCommand = PostsCommand.findPath(extractCommandString(request)).orElseThrow(() -> new CommandNotFoundException("존재하지 않는 명령어 입니다."));
+        finder.find(postsCommand).ifPresent(commandFlow -> commandFlow.execute(request, response));
     }
 
     private String extractCommandString(Request commandInput) {

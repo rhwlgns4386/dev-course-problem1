@@ -13,4 +13,16 @@ public class UserName {
     public String toStringValue() {
         return value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        UserName userName = (UserName) o;
+        return Objects.equals(value, userName.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
+    }
 }

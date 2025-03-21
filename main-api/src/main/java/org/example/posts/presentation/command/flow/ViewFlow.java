@@ -2,20 +2,24 @@ package org.example.posts.presentation.command.flow;
 
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 import org.example.global.exception.InvalidParamException;
 import org.example.posts.presentation.command.PostsCommand;
 import org.example.posts.presentation.controller.PostsController;
 
 import static org.example.boards.presentation.command.ValidationLongConverter.convert;
 
-public class ViewFlow extends CommandFlow<PostsCommand, PostsController> {
+public class ViewFlow extends CommandFlow<PostsCommand> {
 
-    public ViewFlow() {
+    private final PostsController controller;
+
+    public ViewFlow(PostsController controller) {
         super(PostsCommand.LOOKUP);
+        this.controller = controller;
     }
 
     @Override
-    public void execute(PostsController controller, Request request) {
+    public void execute(Request request, Response response) {
         String id = request.getParameter("postId");
         try{
             controller.lookup(convert(id));

@@ -37,4 +37,20 @@ public class UserInfoDto {
     public Email email() {
         return new Email(email);
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

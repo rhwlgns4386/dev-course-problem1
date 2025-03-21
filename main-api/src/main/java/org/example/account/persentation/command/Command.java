@@ -8,7 +8,8 @@ public enum Command {
     DETAIL("/detail"),
     SIGNUP("/signup"),
     REMOVE("/remove"),
-    EDIT("/edit");
+    EDIT("/edit"),
+    SIGNIN("/signin");
 
     private final String path;
 

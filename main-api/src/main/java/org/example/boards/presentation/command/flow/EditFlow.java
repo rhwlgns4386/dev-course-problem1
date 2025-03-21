@@ -5,16 +5,20 @@ import org.example.boards.presentation.command.ValidationLongConverter;
 import org.example.boards.presentation.controller.BoardController;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 import org.example.global.exception.InvalidParamException;
 
-public class EditFlow extends CommandFlow<BoardCommand, BoardController> {
+public class EditFlow extends CommandFlow<BoardCommand> {
 
-    public EditFlow() {
+    private final BoardController controller;
+
+    public EditFlow(BoardController boardController) {
         super(BoardCommand.EDIT);
+        this.controller = boardController;
     }
 
     @Override
-    public void execute(BoardController controller, Request request) {
+    public void execute(Request request, Response response) {
         String boardId = request.getParameter("boardId");
         try{
             long id = ValidationLongConverter.convert(boardId);

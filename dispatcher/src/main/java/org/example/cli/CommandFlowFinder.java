@@ -5,23 +5,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class CommandFlowFinder<K, C> {
-    private final Map<K, CommandFlow<K, C>> store;
+public class CommandFlowFinder<K> {
+    private final Map<K, CommandFlow<K>> store;
 
-    public CommandFlowFinder(Map<K, CommandFlow<K, C>> store) {
+    public CommandFlowFinder(Map<K, CommandFlow<K>> store) {
         this.store = store;
     }
 
-    public CommandFlowFinder(List<CommandFlow<K,C>> flows) {
+    public CommandFlowFinder(List<CommandFlow<K>> flows) {
         this(toMap(flows));
     }
 
-    public Optional<CommandFlow<K,C>> find(K key) {
+    public Optional<CommandFlow<K>> find(K key) {
         return Optional.ofNullable(store.get(key));
     }
 
-    private static <K, C> Map<K, CommandFlow<K, C>> toMap(List<CommandFlow<K, C>> flows) {
-        HashMap<K, CommandFlow<K, C>> result = new HashMap<>();
+    private static <K> Map<K, CommandFlow<K>> toMap(List<CommandFlow<K>> flows) {
+        HashMap<K, CommandFlow<K>> result = new HashMap<>();
         flows.forEach(flow -> result.put(flow.getKey(), flow));
         return result;
     }

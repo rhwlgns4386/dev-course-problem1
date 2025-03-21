@@ -1,4 +1,4 @@
-package org.example.account.domain.service;
+package org.example.account.domain.exception;
 
 import org.example.global.exception.BusinessException;
 

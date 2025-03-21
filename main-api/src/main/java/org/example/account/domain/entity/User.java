@@ -4,6 +4,7 @@ import org.example.persistance.anotaion.Id;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import org.example.account.domain.exception.InvalidUserInfoException;
 
 public class User {
 
@@ -67,5 +68,12 @@ public class User {
 
     public String nickName() {
         return nickName.toStringValue();
+    }
+
+    public boolean samePassword(Password password) {
+        if(password.equals(this.password)) {
+           return true;
+        }
+        return false;
     }
 }

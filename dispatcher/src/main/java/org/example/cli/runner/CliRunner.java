@@ -5,6 +5,7 @@ import org.example.cli.view.ErrorView;
 import org.example.dispatcher.ApplicationRunner;
 import org.example.dispatcher.DispatchController;
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 import org.example.dispatcher.exception.FormatException;
 
 public class CliRunner implements ApplicationRunner {
@@ -15,11 +16,18 @@ public class CliRunner implements ApplicationRunner {
         this.dispatchController = dispatchController;
     }
 
-    public void run(){
+    public void run() {
+        Long sessionId = null;
         while (ApplicationStateHolder.isRun()) {
             try {
-                dispatchController.dispatch(new Request(CliView.readCommand()));
-            }catch (FormatException e){
+                Response response = new Response();
+                dispatchController.dispatch(new Request(sessionId,CliView.readCommand()), response);
+                if(response.hasSession()){
+                    sessionId = response.getSessionId();
+                }else{
+                    sessionId = null;
+                }
+            } catch (FormatException e) {
                 ErrorView.renderError(e.getMessage());
             }
         }

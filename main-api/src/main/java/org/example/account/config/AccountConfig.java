@@ -2,6 +2,8 @@ package org.example.account.config;
 
 import org.example.account.domain.service.UserRepository;
 import org.example.account.domain.service.UserService;
+import org.example.account.persentation.controller.AccountController;
+import org.example.account.persentation.controller.AccountRepository;
 import org.example.account.persentation.controller.UserController;
 import org.example.account.persistance.InMemoryUserRepository;
 
@@ -9,7 +11,7 @@ public class AccountConfig {
 
     private static UserController userController;
     private static UserService userService;
-    private static UserRepository userRepository;
+    private static InMemoryUserRepository repository;
 
     public static UserController userController(){
         if(userController == null){
@@ -26,13 +28,21 @@ public class AccountConfig {
     }
 
     public static UserRepository userRepository(){
-        if(userRepository == null){
-            userRepository = new InMemoryUserRepository();
+        if(repository == null){
+            repository = new InMemoryUserRepository();
         }
-        return userRepository;
+        return repository;
     }
 
-    public static void setBoardRepository(UserRepository userRepository){
-        AccountConfig.userRepository = userRepository;
+    public static AccountController accountController(){
+        return new AccountController(accountRepository());
     }
+
+    public static AccountRepository accountRepository(){
+        if(repository == null){
+            repository = new InMemoryUserRepository();
+        }
+        return repository;
+    }
+
 }

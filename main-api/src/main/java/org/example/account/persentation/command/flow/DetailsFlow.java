@@ -5,15 +5,20 @@ import org.example.account.persentation.controller.UserController;
 import org.example.boards.presentation.command.ValidationLongConverter;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 import org.example.validator.StringValidator;
 
-public class DetailsFlow extends CommandFlow<Command, UserController> {
-    public DetailsFlow() {
+public class DetailsFlow extends CommandFlow<Command> {
+
+    private final UserController controller;
+
+    public DetailsFlow(UserController userController) {
         super(Command.DETAIL);
+        this.controller = userController;
     }
 
     @Override
-    public void execute(UserController controller, Request request) {
+    public void execute(Request request, Response response) {
         String id = request.getParameter("accountId");
         StringValidator.validate(id);
         controller.load(ValidationLongConverter.convert(id));

@@ -6,7 +6,7 @@ import org.example.global.exception.ExceptionHandler;
 
 public class AccountRequestHandlerFactory {
 
-    public static RequestHandler create(){
-        return new AccountRequestHandlerAdaptor(AccountConfig.userController(),new ExceptionHandler());
+    public static RequestHandler create() {
+        return new AccountRequestHandlerAdaptor(AccountConfig.userController(), AccountConfig.accountController(), new ExceptionHandler());
     }
 }

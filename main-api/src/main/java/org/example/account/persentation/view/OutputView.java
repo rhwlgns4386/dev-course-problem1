@@ -18,4 +18,8 @@ public class OutputView {
     public static void renderDelete(Long id) {
         System.out.printf("%s번 회원이 삭제 되었습니다.\n",id);
     }
+
+    public static void renderSuccessLogin() {
+        System.out.println("로그인에 성공하셨습니다.");
+    }
 }

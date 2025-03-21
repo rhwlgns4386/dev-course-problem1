@@ -2,6 +2,7 @@ package org.example.global;
 
 import org.example.dispatcher.RequestHandler;
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 import org.example.global.exception.ExceptionHandler;
 import org.example.global.exception.FormatException;
 import org.example.global.exception.PresentationException;
@@ -15,9 +16,9 @@ public abstract class BaseRequestHandler implements RequestHandler {
     }
 
     @Override
-    public void run(Request commandInput) {
+    public void run(Request request, Response response) {
         try {
-            execute(commandInput);
+            execute(request,response);
         }catch (Exception e) {
             handleException(e);
         }
@@ -34,5 +35,5 @@ public abstract class BaseRequestHandler implements RequestHandler {
 
     }
 
-    public abstract void execute(Request commandInput);
+    public abstract void execute(Request request,Response response) throws Exception;
 }

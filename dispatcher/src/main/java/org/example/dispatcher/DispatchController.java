@@ -1,6 +1,7 @@
 package org.example.dispatcher;
 
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.dto.Response;
 import org.example.dispatcher.exception.RequestNotMatchedException;
 
 public class DispatchController {
@@ -11,10 +12,10 @@ public class DispatchController {
         this.handlerMapper = handlerMapper;
     }
 
-    public void dispatch(Request commandInput){
+    public void dispatch(Request request, Response response) {
         try{
-            RequestHandler requestHandler = handlerMapper.findRequestHandler(commandInput);
-            requestHandler.run(commandInput);
+            RequestHandler requestHandler = handlerMapper.findRequestHandler(request);
+            requestHandler.run(request, response);
         }catch (RequestNotMatchedException e){
             System.out.println("처리 할 수 없는 요청입니다.");
         }catch (Exception e){
