@@ -23,7 +23,7 @@ public class Url {
     }
 
     private static String[] split(String url) {
-        return url.split("\\?");
+        return url.split("\\?",2);
     }
 
     private static void validatePattern(String url) {
@@ -32,12 +32,12 @@ public class Url {
         }
     }
 
-    static Map<String, String> initParams(String param) {
+    private static Map<String, String> initParams(String param) {
         Map<String, String> reusult = new HashMap<>();
 
         String[] querys = param.split("&");
         for (String query : querys) {
-            String[] keyValues = query.split("=");
+            String[] keyValues = query.split("=",2);
             reusult.put(keyValues[0], keyValues[1]);
         }
         return reusult;

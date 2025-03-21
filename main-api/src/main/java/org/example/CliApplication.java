@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.account.persentation.command.AccountRequestHandlerFactory;
 import org.example.boards.presentation.command.BoardRequestHandlerFactory;
 import org.example.cli.runner.CliRunner;
 import org.example.dispatcher.ApplicationRunner;
@@ -13,7 +14,8 @@ public class CliApplication {
     public static void main(String[] args) {
         HandlerMapper handlerMapper = HandlerMapperFactory.handlerMapper(
                 CommandRequestHandlerFactory.create(),
-                BoardRequestHandlerFactory.create()
+                BoardRequestHandlerFactory.create(),
+                AccountRequestHandlerFactory.create()
         );
         run(handlerMapper);
     }

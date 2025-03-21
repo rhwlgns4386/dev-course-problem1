@@ -18,15 +18,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BoardApplicationTest extends CliApplicationTest {
 
-    private static final BoardRepository boardRepository = new InMemoryBoardRepository();
-
-    @BeforeAll
-    public static void initConfig(){
-        BoardConfig.setBoardRepository(boardRepository);
-    }
+    private static BoardRepository boardRepository;
 
     @BeforeEach
     public void initRepository(){
+        boardRepository = BoardConfig.boardRepository();
         boardRepository.clear();
     }
 
@@ -72,13 +68,13 @@ public class BoardApplicationTest extends CliApplicationTest {
 
     @Test
     void 게시판삭제(){
-        boardRepository.save(new Board(new Title("test1")));
+        Board save = boardRepository.save(new Board(new Title("test1")));
 
         run(()->{
             in(input->input.command("/boards/remove?boardId=1"));
             CliApplication.main(new String[]{});
         });
-        Optional<Board> board = boardRepository.findById(1L);
+        Optional<Board> board = boardRepository.findById(save.id());
         assertThat(board).isEmpty();
     }
 

@@ -1,9 +1,6 @@
 package org.example.account.domain.service;
 
-import org.example.account.domain.entity.Email;
-import org.example.account.domain.entity.Password;
-import org.example.account.domain.entity.User;
-import org.example.account.domain.entity.UserName;
+import org.example.account.domain.entity.*;
 import org.example.global.exception.EntityNotFoundException;
 
 public class UserService {
@@ -18,8 +15,11 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(UserService::entityNotFoundException);
     }
 
-    public Long save(UserName userName, Email email, Password password) {
-        User user = userRepository.save(new User(userName, email, password));
+    public Long save(UserName userName, Email email, Password password,NickName nickName) {
+        if(userRepository.extractByUserId(userName)){
+            throw new DuplicateUserNameException("아이디가 중복 됩니다.");
+        }
+        User user = userRepository.save(new User(userName, email, password,nickName));
         return user.id();
     }
 
