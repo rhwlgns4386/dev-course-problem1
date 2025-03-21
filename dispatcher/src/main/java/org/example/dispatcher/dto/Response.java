@@ -6,6 +6,10 @@ public class Response {
 
     private Long sessionId;
 
+    public Response(Long sessionId) {
+        this.sessionId = sessionId;
+    }
+
     public void setSession() {
         this.sessionId = SessionHolder.createSession();
     }
@@ -16,5 +20,10 @@ public class Response {
 
     public Long getSessionId() {
         return this.sessionId;
+    }
+
+    public void logout() {
+        SessionHolder.removeSession(this.sessionId);
+        this.sessionId = null;
     }
 }

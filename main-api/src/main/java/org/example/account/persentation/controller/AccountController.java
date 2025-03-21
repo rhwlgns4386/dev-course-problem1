@@ -7,7 +7,9 @@ import org.example.account.persentation.dto.UserInfoDto;
 import org.example.account.persentation.exception.UserAuthenticationException;
 import org.example.account.persentation.view.InputView;
 import org.example.account.persentation.view.OutputView;
+import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.Response;
+import org.example.global.exception.PresentationException;
 
 import java.util.Optional;
 
@@ -19,16 +21,31 @@ public class AccountController {
         this.accountRepository = accountRepository;
     }
 
-    public void login(String username, String password, Response response){
-        User user = accountRepository.findByUsername(username).orElseThrow(()->new UserAuthenticationException("회원 정보가 일치 하지 않습니다."));
+    public UserInfoDto readLoginInfo() {
+        return InputView.readLoginInfo();
+    }
+
+    public void login(String username, String password, Request request, Response response){
+        User user = accountRepository.findByUsername(username).orElseThrow(()-> createAuthenticationException());
         if(!user.samePassword(new Password(password))){
-            throw new UserAuthenticationException("회원 정보가 일치 하지 않습니다.");
+            throw createAuthenticationException();
+        }
+        if(response.hasSession()){
+            throw new PresentationException("이미 로그인되어 있습니다.");
         }
         response.setSession();
         OutputView.renderSuccessLogin();
     }
 
-    public UserInfoDto readLoginInfo() {
-        return InputView.readLoginInfo();
+    private static UserAuthenticationException createAuthenticationException() {
+        return new UserAuthenticationException("회원 정보가 일치 하지 않습니다.");
+    }
+
+    public void singout(Response response) {
+        if(!response.hasSession()){
+            throw new PresentationException("로그인이 되어 있지 않습니다.");
+        }
+        response.logout();
+        OutputView.renderSuccessLogout();
     }
 }

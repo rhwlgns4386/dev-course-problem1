@@ -116,12 +116,22 @@ public class AccountApplicationTest extends CliApplicationTest {
     void 사용자_로그아웃(){
         User user = userRepository.save(new User(new UserName("test"), new Email("email@naver.com"), new Password("password"),new NickName("test")));
         run(()->{
-            in(input->input.command("/accounts/signin").input(user.userName(),user.password()));
+            in(input->input.command("/accounts/signin").input(user.userName(),user.password()).command("/accounts/signout"));
             CliApplication.main(new String[]{});
         });
-
         assertThat(out()).contains(
-                "로그인에 성공하셨습니다."
+                "로그아웃에 성공하셨습니다."
+        );
+    }
+
+    @Test
+    void 로그인이_아닌상태에서_로그아웃(){
+        run(()->{
+            in(input->input.command("/accounts/signout"));
+            CliApplication.main(new String[]{});
+        });
+        assertThat(out()).contains(
+                "로그인이 되어 있지 않습니다."
         );
     }
 }

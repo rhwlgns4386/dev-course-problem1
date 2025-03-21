@@ -21,7 +21,7 @@ public class AccountRequestHandlerAdaptor extends BaseRequestHandler {
 
     public AccountRequestHandlerAdaptor(UserController userController,AccountController accountController, ExceptionHandler exceptionHandler) {
         super(exceptionHandler);
-        List<CommandFlow<Command>> commandFlows = List.of(new DetailsFlow(userController), new SingupFlow(userController), new RemoveFlow(userController), new EditFlow(userController),new SignInFlow(accountController));
+        List<CommandFlow<Command>> commandFlows = List.of(new DetailsFlow(userController), new SingupFlow(userController), new RemoveFlow(userController), new EditFlow(userController),new SignInFlow(accountController),new SignoutFlow(accountController));
         this.finder = new CommandFlowFinder<>(commandFlows);
     }
 

@@ -5,11 +5,9 @@ import org.example.dispatcher.session.SessionHolder;
 
 public class Request {
     private final Url url;
-    private final Session session;
 
-    public Request(Long sessionId, String url) {
+    public Request(String url) {
         this.url = new Url(url);
-        session = SessionHolder.getSession(sessionId);
     }
 
     public String getParameter(String key) {
@@ -23,4 +21,5 @@ public class Request {
     public String getPath() {
         return url.path();
     }
+
 }

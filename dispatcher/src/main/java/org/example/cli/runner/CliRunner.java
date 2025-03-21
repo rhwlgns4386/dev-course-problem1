@@ -20,8 +20,8 @@ public class CliRunner implements ApplicationRunner {
         Long sessionId = null;
         while (ApplicationStateHolder.isRun()) {
             try {
-                Response response = new Response();
-                dispatchController.dispatch(new Request(sessionId,CliView.readCommand()), response);
+                Response response = new Response(sessionId);
+                dispatchController.dispatch(new Request(CliView.readCommand()), response);
                 if(response.hasSession()){
                     sessionId = response.getSessionId();
                 }else{
