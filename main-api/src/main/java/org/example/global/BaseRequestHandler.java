@@ -1,24 +1,33 @@
 package org.example.global;
 
+import org.example.account.persentation.command.Command;
+import org.example.cli.CommandFlow;
+import org.example.cli.CommandFlowFinder;
 import org.example.dispatcher.RequestHandler;
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.dto.Response;
+import org.example.global.exception.CommandNotFoundException;
 import org.example.global.exception.ExceptionHandler;
 import org.example.global.exception.FormatException;
 import org.example.global.exception.PresentationException;
 
-public abstract class BaseRequestHandler implements RequestHandler {
+import java.util.List;
+import java.util.Optional;
+
+public abstract class BaseRequestHandler<K> implements RequestHandler {
 
     private final ExceptionHandler exceptionHandler;
+    private final CommandFlowFinder<K> finder;
 
-    public BaseRequestHandler(ExceptionHandler exceptionHandler){
+    public BaseRequestHandler(ExceptionHandler exceptionHandler,List<CommandFlow<K>> commandFlows) {
         this.exceptionHandler = exceptionHandler;
+        this.finder = new CommandFlowFinder<>(commandFlows);
     }
 
     @Override
     public void run(Request request) {
         try {
-            execute(request);
+            Optional<CommandFlow<K>> flow = finder.find(extractCommandKey(request));
+            flow.ifPresent(commandFlow -> commandFlow.execute(request));
         }catch (Exception e) {
             handleException(e);
         }
@@ -37,5 +46,5 @@ public abstract class BaseRequestHandler implements RequestHandler {
 
     }
 
-    public abstract void execute(Request request) throws Exception;
+    public abstract K extractCommandKey(Request request);
 }

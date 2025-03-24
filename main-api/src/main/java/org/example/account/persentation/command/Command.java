@@ -1,9 +1,11 @@
 package org.example.account.persentation.command;
 
+import org.example.dispatcher.CommandType;
+
 import java.util.Arrays;
 import java.util.Optional;
 
-public enum Command {
+public enum Command implements CommandType {
 
     DETAIL("/detail"),
     SIGNUP("/signup"),
