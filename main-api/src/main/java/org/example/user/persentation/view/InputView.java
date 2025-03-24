@@ -23,12 +23,4 @@ public class InputView {
         String email = CliInput.readLine();
         return new UserInfoDto(password, email);
     }
-
-    public static UserInfoDto readLoginInfo() {
-        System.out.println("아이디 : ");
-        String userName = CliInput.readLine();
-        System.out.println("비밀번호 : ");
-        String password = CliInput.readLine();
-        return new UserInfoDto(userName, password, null, null);
-    }
 }
