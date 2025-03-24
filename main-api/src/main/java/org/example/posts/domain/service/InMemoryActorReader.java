@@ -1,7 +1,7 @@
 package org.example.posts.domain.service;
 
-import org.example.account.domain.service.UserRepository;
 import org.example.posts.domain.entity.Actor;
+import org.example.user.domain.service.UserRepository;
 
 import java.util.Optional;
 

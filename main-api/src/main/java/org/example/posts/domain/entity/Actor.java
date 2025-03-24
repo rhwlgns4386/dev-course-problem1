@@ -1,6 +1,6 @@
 package org.example.posts.domain.entity;
 
-import org.example.account.domain.entity.User;
+import org.example.user.domain.entity.User;
 
 public class Actor {
 
