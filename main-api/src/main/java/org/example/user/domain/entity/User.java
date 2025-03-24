@@ -1,6 +1,7 @@
 package org.example.user.domain.entity;
 
 import org.example.persistance.anotaion.Id;
+import org.example.user.Authority;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -14,10 +15,12 @@ public class User {
     private Email email;
     private Password password;
     private NickName nickName;
+    private Authority authority = Authority.MEMBER;
 
     private LocalDateTime createDate;
 
     private LocalDateTime updateDate;
+
     public User(Long id, UserName userName, Email email, Password password, NickName nickName) {
         this.id = id;
         this.userName = Objects.requireNonNull(userName);
@@ -27,7 +30,6 @@ public class User {
         this.createDate = LocalDateTime.now();
         this.updateDate = LocalDateTime.now();
     }
-
     public User(UserName userName, Email email, Password password, NickName nickName) {
         this(null, userName, email, password, nickName);
     }
@@ -39,6 +41,10 @@ public class User {
         this.email = email;
         this.password = password;
         this.updateDate = LocalDateTime.now();
+    }
+
+    public Authority getAuthority() {
+        return authority;
     }
 
     public Long id() {

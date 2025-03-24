@@ -3,6 +3,7 @@ package org.example;
 import org.example.auth.persentation.command.AccountRequestHandlerFactory;
 import org.example.boards.presentation.command.BoardRequestHandlerFactory;
 import org.example.cli.runner.CliRunner;
+import org.example.config.SecurityOrderFilterConfig;
 import org.example.dispatcher.ApplicationRunner;
 import org.example.dispatcher.DispatchController;
 import org.example.dispatcher.HandlerMapper;
@@ -24,7 +25,7 @@ public class CliApplication {
 
     private static void run(HandlerMapper handlerMapper) {
         DispatchController dispatchController = new DispatchController(handlerMapper);
-        ApplicationRunner applicationRunner = new CliRunner(dispatchController);
+        ApplicationRunner applicationRunner = new CliRunner(new SecurityOrderFilterConfig(),dispatchController);
         applicationRunner.run();
     }
 }

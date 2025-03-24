@@ -2,17 +2,16 @@ package org.example.cli.runner;
 
 import org.example.cli.runner.view.CliView;
 import org.example.cli.view.ErrorView;
-import org.example.dispatcher.ApplicationRunner;
-import org.example.dispatcher.DispatchController;
+import org.example.dispatcher.*;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.exception.FormatException;
 
 public class CliRunner implements ApplicationRunner {
 
-    private final DispatchController dispatchController;
+    private final Dispather dispatchController;
 
-    public CliRunner(DispatchController dispatchController) {
-        this.dispatchController = dispatchController;
+    public CliRunner(OrderFilterConfig filterConfig, DispatchController dispatchController) {
+        this.dispatchController = new FilterDispatcher(filterConfig, dispatchController);
     }
 
     public void run() {

@@ -3,7 +3,7 @@ package org.example.dispatcher;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.exception.RequestNotMatchedException;
 
-public class DispatchController {
+public class DispatchController implements Dispather {
 
     private final HandlerMapper handlerMapper;
 
@@ -11,6 +11,7 @@ public class DispatchController {
         this.handlerMapper = handlerMapper;
     }
 
+    @Override
     public void dispatch(Request request) {
         try{
             RequestHandler requestHandler = handlerMapper.findRequestHandler(request);
