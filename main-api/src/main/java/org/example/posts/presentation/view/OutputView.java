@@ -15,6 +15,7 @@ public final class OutputView {
         System.out.printf("수정일 : %s\n", post.updatedDate().format(pattern));
         System.out.printf("제목 : %s\n", post.title());
         System.out.printf("내용 : %s\n", post.content());
+        System.out.printf("작성자 : %s\n",post.actorName());
     }
 
     public static void renderDeleted(Long id) {

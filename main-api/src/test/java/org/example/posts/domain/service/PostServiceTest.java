@@ -38,9 +38,15 @@ public class PostServiceTest {
     @BeforeEach
     void initRepository() {
         postsRepository = new TestPostsRepository();
-        postsRepository.save(new Post(1L, "title", "content", board, new Actor()));
+        Actor actor = new Actor(1L,"testUser");
+        postsRepository.save(new Post(1L, "title", "content", board, actor));
 
-        postsService = new PostsService(postsRepository, boardRepository);
+        postsService = new PostsService(postsRepository, boardRepository, id -> {
+            if(id != 1L){
+                return Optional.empty();
+            }
+            return Optional.of(actor);
+        });
     }
 
     @Test
@@ -49,7 +55,7 @@ public class PostServiceTest {
         String content = "content";
         LocalDateTime createdDate = LocalDateTime.now();
 
-        Long id = postsService.save(board.id(), title, content, new Actor());
+        Long id = postsService.save(board.id(), title, content, null);
         Optional<Post> post = postsRepository.findById(id);
         assertThat(post).isPresent();
         post.ifPresent((value) -> {
@@ -64,12 +70,12 @@ public class PostServiceTest {
     @ParameterizedTest
     @CsvSource(value = {"title,", ",content"}, delimiter = ',')
     void 저장시_제목혹은_컨텐츠가_비어있다면_예외(String title, String content) {
-        assertThatThrownBy(() -> postsService.save(1L, title, content,new Actor())).isInstanceOf(EntityCreationException.class);
+        assertThatThrownBy(() -> postsService.save(1L, title, content,1L)).isInstanceOf(EntityCreationException.class);
     }
 
     @Test
     void 없는_게시판에_작성시_비어있다면_예외() {
-        assertThatThrownBy(() -> postsService.save(2L, "없다", "진짜없다", new Actor())).isInstanceOf(EntityCreationException.class);
+        assertThatThrownBy(() -> postsService.save(2L, "없다", "진짜없다", null)).isInstanceOf(EntityCreationException.class);
     }
 
     @Test

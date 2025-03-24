@@ -9,6 +9,7 @@ import org.example.account.persentation.view.InputView;
 import org.example.account.persentation.view.OutputView;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.Response;
+import org.example.dispatcher.session.Session;
 import org.example.global.exception.PresentationException;
 
 import java.util.Optional;
@@ -34,6 +35,8 @@ public class AccountController {
             throw new PresentationException("이미 로그인되어 있습니다.");
         }
         request.setSession();
+        Session session = request.getSession();
+        session.add("userId",user.id());
         OutputView.renderSuccessLogin();
     }
 

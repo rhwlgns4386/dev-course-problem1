@@ -1,6 +1,7 @@
 package org.example.posts.presentation.controller;
 
 import org.example.dispatcher.dto.Request;
+import org.example.dispatcher.session.Session;
 import org.example.global.exception.PresentationException;
 import org.example.posts.domain.entity.Actor;
 import org.example.posts.domain.entity.Post;
@@ -27,11 +28,18 @@ public class PostsController {
 
     public void write(Long boardId, PostInfoDto postInfoDto, Request request) {
         try {
-            Long id = postsService.save(boardId, postInfoDto.title(), postInfoDto.content(), new Actor());
+            Long id = postsService.save(boardId, postInfoDto.title(), postInfoDto.content(), getUserId(request));
             lookup(id);
         } catch (EntityCreationException e) {
             throw new WriteException("게시글은 제목과 내용이 필수 입니다.", e);
         }
+    }
+
+    private Long getUserId(Request request) {
+        if(request.hasSession()){
+            return request.getSession().get("userId", Long.class);
+        }
+        return null;
     }
 
     public void lookup(Long id) {

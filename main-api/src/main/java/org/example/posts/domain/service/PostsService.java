@@ -12,10 +12,12 @@ public class PostsService {
 
     private final PostsRepository postsRepository;
     private final BoardRepository boardRepository;
+    private final ActorReader actorReader;
 
-    public PostsService(PostsRepository postsRepository, BoardRepository boardRepository) {
+    public PostsService(PostsRepository postsRepository, BoardRepository boardRepository, ActorReader actorReader) {
         this.postsRepository = postsRepository;
         this.boardRepository = boardRepository;
+        this.actorReader = actorReader;
     }
 
     public Post loadArticle(Long id) throws EntityNotFoundException {
@@ -26,14 +28,22 @@ public class PostsService {
         return new Posts(postsRepository.findAll());
     }
 
-    public Long save(Long boardId, String title, String content, Actor actor) throws EntityCreationException {
+    public Long save(Long boardId, String title, String content, Long userId) throws EntityCreationException {
         try {
             Board board = boardRepository.findById(boardId).orElseThrow(() -> new EntityCreationException("엔티티를 생성 할 수 없습니다."));
-            Post post = postsRepository.save(new Post(title, content, board, actor));
+            Post post = postsRepository.save(new Post(title, content, board, getActor(userId)));
             return post.id();
         } catch (IllegalArgumentException e) {
             throw new EntityCreationException("엔티티를 생성 할 수 없습니다.", e);
         }
+    }
+
+    private Actor getActor(Long userId) {
+        Actor actor = new Actor();
+        if(userId != null) {
+            actor = actorReader.read(userId).orElseThrow(()-> new EntityNotFoundException("작성자를 찾을 수 없습니다."));
+        }
+        return actor;
     }
 
     public void update(Long id, String title, String content) throws EntityNotFoundException {
