@@ -1,2 +1,5 @@
 rootProject.name = 'devcourse_problem1'
+include 'dispatcher'
+include 'persistance'
+include 'main-api'
 
