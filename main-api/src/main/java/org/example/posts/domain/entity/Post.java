@@ -1,6 +1,5 @@
 package org.example.posts.domain.entity;
 
-import org.example.account.domain.entity.User;
 import org.example.boards.domain.entity.Board;
 import org.example.persistance.anotaion.Id;
 import org.example.global.exception.EntityCreationException;

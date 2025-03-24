@@ -15,7 +15,7 @@ public class InMemoryActorReader implements ActorReader {
 
     @Override
     public Optional<Actor> read(Long id) {
-        Actor actor = userRepository.findById(id).map(Actor::new).orElseGet(() -> null);
+        Actor actor = userRepository.findById(id).map(Actor::new).orElse(null);
         return Optional.ofNullable(actor);
     }
 }

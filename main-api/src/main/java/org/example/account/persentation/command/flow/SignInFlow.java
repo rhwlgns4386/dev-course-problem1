@@ -5,7 +5,6 @@ import org.example.account.persentation.controller.AccountController;
 import org.example.account.persentation.dto.UserInfoDto;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.dto.Response;
 
 public class SignInFlow extends CommandFlow<Command> {
 

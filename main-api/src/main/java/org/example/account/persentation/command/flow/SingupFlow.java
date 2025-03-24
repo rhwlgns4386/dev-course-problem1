@@ -5,7 +5,6 @@ import org.example.account.persentation.controller.UserController;
 import org.example.account.persentation.dto.UserInfoDto;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.dto.Response;
 
 public class SingupFlow extends CommandFlow<Command> {
 

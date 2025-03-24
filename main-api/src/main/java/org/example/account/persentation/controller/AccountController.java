@@ -2,17 +2,13 @@ package org.example.account.persentation.controller;
 
 import org.example.account.domain.entity.Password;
 import org.example.account.domain.entity.User;
-import org.example.account.domain.service.UserRepository;
 import org.example.account.persentation.dto.UserInfoDto;
 import org.example.account.persentation.exception.UserAuthenticationException;
 import org.example.account.persentation.view.InputView;
 import org.example.account.persentation.view.OutputView;
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.dto.Response;
 import org.example.dispatcher.session.Session;
 import org.example.global.exception.PresentationException;
-
-import java.util.Optional;
 
 public class AccountController {
 

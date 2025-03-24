@@ -4,8 +4,8 @@ import org.example.account.domain.entity.User;
 
 public class Actor {
 
-    private Long userId;
-    private String userName;
+    private final Long userId;
+    private final String userName;
 
     public Actor(Long userId, String userName) {
         this.userId = userId;

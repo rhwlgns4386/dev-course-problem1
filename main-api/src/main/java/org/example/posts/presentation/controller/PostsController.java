@@ -1,9 +1,7 @@
 package org.example.posts.presentation.controller;
 
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.session.Session;
 import org.example.global.exception.PresentationException;
-import org.example.posts.domain.entity.Actor;
 import org.example.posts.domain.entity.Post;
 import org.example.global.exception.EntityCreationException;
 import org.example.global.exception.EntityNotFoundException;

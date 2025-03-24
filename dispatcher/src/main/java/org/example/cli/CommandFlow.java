@@ -1,7 +1,6 @@
 package org.example.cli;
 
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.dto.Response;
 
 public abstract class CommandFlow<K> {
     private final K key;

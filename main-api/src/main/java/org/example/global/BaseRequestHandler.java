@@ -1,11 +1,9 @@
 package org.example.global;
 
-import org.example.account.persentation.command.Command;
 import org.example.cli.CommandFlow;
 import org.example.cli.CommandFlowFinder;
 import org.example.dispatcher.RequestHandler;
 import org.example.dispatcher.dto.Request;
-import org.example.global.exception.CommandNotFoundException;
 import org.example.global.exception.ExceptionHandler;
 import org.example.global.exception.FormatException;
 import org.example.global.exception.PresentationException;

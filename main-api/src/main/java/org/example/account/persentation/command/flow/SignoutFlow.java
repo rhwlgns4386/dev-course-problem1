@@ -4,7 +4,6 @@ import org.example.account.persentation.command.Command;
 import org.example.account.persentation.controller.AccountController;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.dto.Response;
 
 public class SignoutFlow extends CommandFlow<Command> {
 

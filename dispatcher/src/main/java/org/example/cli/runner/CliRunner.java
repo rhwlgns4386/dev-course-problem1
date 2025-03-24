@@ -5,7 +5,6 @@ import org.example.cli.view.ErrorView;
 import org.example.dispatcher.ApplicationRunner;
 import org.example.dispatcher.DispatchController;
 import org.example.dispatcher.dto.Request;
-import org.example.dispatcher.dto.Response;
 import org.example.dispatcher.exception.FormatException;
 
 public class CliRunner implements ApplicationRunner {
