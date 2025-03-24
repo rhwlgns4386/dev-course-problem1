@@ -2,6 +2,7 @@ package org.example.posts.domain.service;
 
 import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.service.BoardRepository;
+import org.example.posts.domain.entity.Actor;
 import org.example.posts.domain.entity.Post;
 import org.example.posts.domain.entity.Posts;
 import org.example.global.exception.EntityCreationException;
@@ -25,10 +26,10 @@ public class PostsService {
         return new Posts(postsRepository.findAll());
     }
 
-    public Long save(Long boardId, String title, String content) throws EntityCreationException {
+    public Long save(Long boardId, String title, String content, Actor actor) throws EntityCreationException {
         try {
             Board board = boardRepository.findById(boardId).orElseThrow(() -> new EntityCreationException("엔티티를 생성 할 수 없습니다."));
-            Post post = postsRepository.save(new Post(title, content, board));
+            Post post = postsRepository.save(new Post(title, content, board, actor));
             return post.id();
         } catch (IllegalArgumentException e) {
             throw new EntityCreationException("엔티티를 생성 할 수 없습니다.", e);

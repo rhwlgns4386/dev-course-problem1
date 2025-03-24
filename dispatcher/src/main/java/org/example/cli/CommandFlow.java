@@ -15,5 +15,5 @@ public abstract class CommandFlow<K> {
     }
 
 
-    public abstract void execute(Request request, Response response);
+    public abstract void execute(Request request);
 }

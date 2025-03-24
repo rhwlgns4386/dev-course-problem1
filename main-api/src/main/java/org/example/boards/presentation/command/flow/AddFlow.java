@@ -16,7 +16,7 @@ public class AddFlow extends CommandFlow<BoardCommand> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String title = controller.readBoardName();
         controller.write(title);
     }

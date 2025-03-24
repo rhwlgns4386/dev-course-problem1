@@ -19,12 +19,12 @@ public class RemoveFlow extends CommandFlow<BoardCommand> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String boardId = request.getParameter("boardId");
         try {
-            long id =convert(boardId);
+            long id = convert(boardId);
             controller.remove(id);
-        }catch (NullPointerException e){
+        }catch (IllegalArgumentException e){
             throw new InvalidParamException("파라미터가 잘못 되었습니다.");
         }
     }

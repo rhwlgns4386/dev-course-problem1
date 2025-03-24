@@ -17,7 +17,7 @@ public class RemoveFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String id = request.getParameter("accountId");
         controller.remove(ValidationLongConverter.convert(id));
     }

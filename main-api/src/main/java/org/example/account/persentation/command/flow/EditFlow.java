@@ -18,7 +18,7 @@ public class EditFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         Long id = ValidationLongConverter.convert(request.getParameter("accountId"));
         UserInfoDto userInfoDto = controller.readUpdateInfo();
         controller.edit(id,userInfoDto);

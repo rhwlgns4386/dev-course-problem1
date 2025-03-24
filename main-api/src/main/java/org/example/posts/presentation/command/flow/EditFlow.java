@@ -20,7 +20,7 @@ public class EditFlow extends CommandFlow<PostsCommand> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String id = request.getParameter("postId");
         try{
             long postId = convert(id);

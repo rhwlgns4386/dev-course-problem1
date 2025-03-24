@@ -18,14 +18,14 @@ public class EditFlow extends CommandFlow<BoardCommand> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String boardId = request.getParameter("boardId");
         try{
             long id = ValidationLongConverter.convert(boardId);
             controller.containId(id);
             String title = controller.readBoardName();
             controller.edit(id, title);
-        }catch (NullPointerException e){
+        }catch (IllegalArgumentException e){
             throw new InvalidParamException("파라미터가 잘못 되었습니다.");
         }
     }

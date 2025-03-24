@@ -32,10 +32,10 @@ public class AccountRequestHandlerAdaptor extends BaseRequestHandler {
     }
 
     @Override
-    public void execute(Request commandInput, Response response) {
+    public void execute(Request commandInput) {
         Command command = Command.findPath(extractCommandString(commandInput)).orElseThrow(() -> new CommandNotFoundException("존재하지 않는 명령어 입니다."));
         Optional<CommandFlow<Command>> flow = finder.find(command);
-        flow.ifPresent(commandFlow -> commandFlow.execute(commandInput, response));
+        flow.ifPresent(commandFlow -> commandFlow.execute(commandInput));
     }
 
     private String extractCommandString(Request commandInput) {

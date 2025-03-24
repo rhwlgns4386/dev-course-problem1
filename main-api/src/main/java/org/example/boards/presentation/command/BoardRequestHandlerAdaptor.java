@@ -33,10 +33,10 @@ public class BoardRequestHandlerAdaptor extends BaseRequestHandler {
     }
 
     @Override
-    public void execute(Request request, Response response) throws Exception {
+    public void execute(Request request) throws Exception {
         BoardCommand command = BoardCommand.findPath(extractCommandString(request)).orElseThrow(() -> new CommandNotFoundException("존재하지 않는 명령어 입니다."));
         Optional<CommandFlow<BoardCommand>> flow = finder.find(command);
-        flow.ifPresent(commandFlow -> commandFlow.execute(request, response));
+        flow.ifPresent(commandFlow -> commandFlow.execute(request));
     }
 
     private String extractCommandString(Request commandInput) {

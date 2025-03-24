@@ -31,9 +31,9 @@ public class PostRequestHandlerAdaptor extends BaseRequestHandler {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         PostsCommand postsCommand = PostsCommand.findPath(extractCommandString(request)).orElseThrow(() -> new CommandNotFoundException("존재하지 않는 명령어 입니다."));
-        finder.find(postsCommand).ifPresent(commandFlow -> commandFlow.execute(request, response));
+        finder.find(postsCommand).ifPresent(commandFlow -> commandFlow.execute(request));
     }
 
     private String extractCommandString(Request commandInput) {

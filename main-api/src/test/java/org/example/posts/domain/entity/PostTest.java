@@ -1,5 +1,6 @@
 package org.example.posts.domain.entity;
 
+import org.example.account.domain.entity.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,20 +12,33 @@ import static org.example.posts.TestBoards.board;
 class PostTest {
 
 
-
     @Test
     void 아티클_생성() {
         String title = "첫과제 화이팅";
         String content = "모두 처음 과제 잘 해봅시다!";
-        Post post = new Post(title, content,board);
+        Post post = new Post(title, content, board);
 
         assertThat(post.title()).isEqualTo(title);
         assertThat(post.content()).isEqualTo(content);
+        assertThat(post.actorName()).isEqualTo("비회원");
+    }
+
+    @Test
+    void 아티클_작성자가_있는상태의_생성() {
+        String title = "첫과제 화이팅";
+        String content = "모두 처음 과제 잘 해봅시다!";
+        Actor actor = new Actor(1L,"testUser");
+
+        Post post = new Post(title, content, board, actor);
+
+        assertThat(post.title()).isEqualTo(title);
+        assertThat(post.content()).isEqualTo(content);
+        assertThat(post.actorName()).isEqualTo(actor.userName());
     }
 
     @Test
     void 아티클_수정() {
-        Post post = new Post("첫과제 화이팅", "모두 처음 과제 잘 해봅시다!",board);
+        Post post = new Post("첫과제 화이팅", "모두 처음 과제 잘 해봅시다!", board);
         String title = "함께 성장";
         String content = "잘 모르면 서로 도와주기~";
 
@@ -35,15 +49,15 @@ class PostTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"title,",",content"},delimiter = ',')
+    @CsvSource(value = {"title,", ",content"}, delimiter = ',')
     void 제목혹은_컨텐츠가_비어있다면_예외(String title, String content) {
-        assertThatIllegalArgumentException().isThrownBy(() -> new Post(title, content,board));
+        assertThatIllegalArgumentException().isThrownBy(() -> new Post(title, content, board));
     }
 
     @Test
     void 게시판을_포함하지_않으면_예외() {
         String title = "첫과제 화이팅";
         String content = "모두 처음 과제 잘 해봅시다!";
-        assertThatIllegalArgumentException().isThrownBy(() -> new Post(title, content,null));
+        assertThatIllegalArgumentException().isThrownBy(() -> new Post(title, content, null));
     }
 }

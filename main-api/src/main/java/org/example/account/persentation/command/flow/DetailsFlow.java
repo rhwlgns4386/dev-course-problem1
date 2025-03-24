@@ -18,7 +18,7 @@ public class DetailsFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String id = request.getParameter("accountId");
         StringValidator.validate(id);
         controller.load(ValidationLongConverter.convert(id));

@@ -12,10 +12,10 @@ public class DispatchController {
         this.handlerMapper = handlerMapper;
     }
 
-    public void dispatch(Request request, Response response) {
+    public void dispatch(Request request) {
         try{
             RequestHandler requestHandler = handlerMapper.findRequestHandler(request);
-            requestHandler.run(request, response);
+            requestHandler.run(request);
         }catch (RequestNotMatchedException e){
             System.out.println("처리 할 수 없는 요청입니다.");
         }catch (Exception e){

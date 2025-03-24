@@ -16,9 +16,9 @@ public abstract class BaseRequestHandler implements RequestHandler {
     }
 
     @Override
-    public void run(Request request, Response response) {
+    public void run(Request request) {
         try {
-            execute(request,response);
+            execute(request);
         }catch (Exception e) {
             handleException(e);
         }
@@ -29,11 +29,13 @@ public abstract class BaseRequestHandler implements RequestHandler {
             exceptionHandler.handlePresentationException((PresentationException) e);
         }else if(e instanceof FormatException){
             exceptionHandler.handleFormatException(e);
+        }else if(e instanceof IllegalArgumentException){
+            exceptionHandler.handleIllegaltException((IllegalArgumentException) e);
         }else{
             exceptionHandler.handleRuntimeException(e);
         }
 
     }
 
-    public abstract void execute(Request request,Response response) throws Exception;
+    public abstract void execute(Request request) throws Exception;
 }

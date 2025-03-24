@@ -6,5 +6,5 @@ import org.example.dispatcher.dto.Response;
 public interface RequestHandler {
     boolean support(Request request);
 
-    void run(Request request, Response response);
+    void run(Request request);
 }

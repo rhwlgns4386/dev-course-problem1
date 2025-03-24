@@ -25,15 +25,15 @@ public class AccountController {
         return InputView.readLoginInfo();
     }
 
-    public void login(String username, String password, Request request, Response response){
+    public void login(String username, String password, Request request){
         User user = accountRepository.findByUsername(username).orElseThrow(()-> createAuthenticationException());
         if(!user.samePassword(new Password(password))){
             throw createAuthenticationException();
         }
-        if(response.hasSession()){
+        if(request.hasSession()){
             throw new PresentationException("이미 로그인되어 있습니다.");
         }
-        response.setSession();
+        request.setSession();
         OutputView.renderSuccessLogin();
     }
 
@@ -41,11 +41,11 @@ public class AccountController {
         return new UserAuthenticationException("회원 정보가 일치 하지 않습니다.");
     }
 
-    public void singout(Response response) {
-        if(!response.hasSession()){
+    public void singout(Request request) {
+        if(!request.hasSession()){
             throw new PresentationException("로그인이 되어 있지 않습니다.");
         }
-        response.logout();
+        request.logout();
         OutputView.renderSuccessLogout();
     }
 }

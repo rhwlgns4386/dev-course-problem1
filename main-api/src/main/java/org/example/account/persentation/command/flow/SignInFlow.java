@@ -17,8 +17,8 @@ public class SignInFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         UserInfoDto userInfoDto = controller.readLoginInfo();
-        controller.login(userInfoDto.getUserName(), userInfoDto.getPassword(), request, response);
+        controller.login(userInfoDto.getUserName(), userInfoDto.getPassword(), request);
     }
 }

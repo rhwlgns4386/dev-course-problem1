@@ -17,7 +17,7 @@ public class SingupFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         UserInfoDto userInfoDto = controller.readUserInfo();
         controller.singup(userInfoDto);
     }

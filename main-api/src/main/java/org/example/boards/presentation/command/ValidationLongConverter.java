@@ -1,13 +1,13 @@
 package org.example.boards.presentation.command;
 
 import org.example.validator.NumberValidator;
-
-import java.util.Objects;
+import org.example.validator.StringValidator;
 
 public class ValidationLongConverter {
 
     public static Long convert(String value) {
-        NumberValidator.validate(Objects.requireNonNull(value));
+        StringValidator.validate(value);
+        NumberValidator.validate(value);
         return Long.parseLong(value);
     }
 }

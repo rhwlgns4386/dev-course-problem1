@@ -16,7 +16,7 @@ public class SignoutFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
-        accountController.singout(response);
+    public void execute(Request request) {
+        accountController.singout(request);
     }
 }

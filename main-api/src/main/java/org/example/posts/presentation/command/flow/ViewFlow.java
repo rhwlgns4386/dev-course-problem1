@@ -19,7 +19,7 @@ public class ViewFlow extends CommandFlow<PostsCommand> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String id = request.getParameter("postId");
         try{
             controller.lookup(convert(id));

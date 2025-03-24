@@ -97,7 +97,7 @@ public class BoardApplicationTest extends CliApplicationTest {
         boardRepository.save(new Board(title));
 
         run(()->{
-            in(input->input.command("/boards/view?boardName=2&boardName=1"));
+            in(input->input.command("/boards/view?boardName=2&boardName=test1"));
             CliApplication.main(new String[]{});
         });
         String format = title.createAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -116,9 +116,9 @@ public class BoardApplicationTest extends CliApplicationTest {
     @Test
     void 없는_데이터_조회(){
         run(()->{
-            in(input->input.command("/boards/view?boardName=1"));
+            in(input->input.command("/boards/view?boardName=1번"));
             CliApplication.main(new String[]{});
         });
-        assertThat(out()).contains("1번 게시판은 존재하지 않습니다.");
+        assertThat(out()).contains("1번 이름의 게시판은 존재하지 않습니다.");
     }
 }

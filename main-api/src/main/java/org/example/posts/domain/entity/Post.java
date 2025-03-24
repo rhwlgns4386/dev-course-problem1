@@ -1,5 +1,6 @@
 package org.example.posts.domain.entity;
 
+import org.example.account.domain.entity.User;
 import org.example.boards.domain.entity.Board;
 import org.example.persistance.anotaion.Id;
 import org.example.global.exception.EntityCreationException;
@@ -16,12 +17,13 @@ public class Post {
     private String title;
     private String content;
     private Board board;
+    private Actor actor;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    public Post(Long id, String title, String content,Board board) throws EntityCreationException {
-        update(title,content);
-        if(board == null){
+    public Post(Long id, String title, String content, Board board, Actor actor) throws EntityCreationException {
+        update(title, content);
+        if (board == null || actor == null) {
             throw new IllegalArgumentException("값이 널이거나 비어있습니다.");
         }
         this.board = Objects.requireNonNull(board);
@@ -29,10 +31,15 @@ public class Post {
         LocalDateTime now = LocalDateTime.now();
         this.createdDate = now;
         this.updatedDate = now;
+        this.actor = actor;
     }
 
-    public Post(String title, String content,Board board) throws EntityCreationException {
-        this(null, title, content,board);
+    public Post(String title, String content, Board board) throws EntityCreationException {
+        this(null, title, content, board, new Actor());
+    }
+
+    public Post(String title, String content, Board board, Actor actor) throws EntityCreationException {
+        this(null, title, content, board, actor);
     }
 
 
@@ -66,5 +73,9 @@ public class Post {
 
     public LocalDateTime updatedDate() {
         return updatedDate;
+    }
+
+    public String actorName() {
+        return actor.userName();
     }
 }

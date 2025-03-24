@@ -1,11 +1,15 @@
 package org.example.boards.presentation.controller;
 
+import org.example.boards.domain.entity.Board;
 import org.example.boards.domain.entity.Title;
 import org.example.boards.domain.service.BoardService;
 import org.example.boards.presentation.exception.BoardNotFoundException;
 import org.example.boards.presentation.view.InputView;
 import org.example.boards.presentation.view.OutputView;
 import org.example.global.exception.EntityNotFoundException;
+import org.example.global.exception.PresentationException;
+
+import java.util.List;
 
 public class BoardController {
 
@@ -60,7 +64,11 @@ public class BoardController {
 
     public void load(String name) {
         try {
-            OutputView.renderBoardAll(boardService.load(name));
+            List<Board> boards = boardService.load(name);
+            if(boards.isEmpty()){
+                throw new PresentationException(name+" 이름의 게시판은 존재하지 않습니다.");
+            }
+            OutputView.renderBoardAll(boards);
         }catch (EntityNotFoundException e){
             boardNotFoundException(e);
         }

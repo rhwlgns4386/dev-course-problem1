@@ -19,10 +19,10 @@ public class AddFlow extends CommandFlow<PostsCommand> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String id = request.getParameter("boardId");
         try{
-            controller.write(convert(id),controller.readInfo());
+            controller.write(convert(id),controller.readInfo(),request);
         }catch (NullPointerException e){
             throw new InvalidParamException("파라미터가 잘못 되었습니다.");
         }

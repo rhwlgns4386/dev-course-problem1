@@ -20,12 +20,12 @@ public class ViewFlow extends CommandFlow<BoardCommand> {
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void execute(Request request) {
         String name = request.getParameter("boardName");
         try {
             StringValidator.validate(name);
             controller.load(name);
-        }catch (NullPointerException e){
+        }catch (IllegalArgumentException e){
             throw new InvalidParamException("파라미터가 잘못 되었습니다.");
         }
     }
