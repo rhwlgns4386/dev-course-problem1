@@ -6,9 +6,10 @@ import org.example.boards.presentation.command.ValidationLongConverter;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.Response;
+import org.example.global.ExceptionBoxCommandFlow;
 import org.example.validator.StringValidator;
 
-public class DetailsFlow extends CommandFlow<Command> {
+public class DetailsFlow extends ExceptionBoxCommandFlow<Command> {
 
     private final UserController controller;
 
@@ -18,7 +19,7 @@ public class DetailsFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request) {
+    public void doAfter(Request request) {
         String id = request.getParameter("accountId");
         StringValidator.validate(id);
         controller.load(ValidationLongConverter.convert(id));

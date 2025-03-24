@@ -6,8 +6,9 @@ import org.example.boards.presentation.command.ValidationLongConverter;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.Response;
+import org.example.global.ExceptionBoxCommandFlow;
 
-public class RemoveFlow extends CommandFlow<Command> {
+public class RemoveFlow extends ExceptionBoxCommandFlow<Command> {
 
     private final UserController controller;
 
@@ -17,7 +18,7 @@ public class RemoveFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request) {
+    public void doAfter(Request request) {
         String id = request.getParameter("accountId");
         controller.remove(ValidationLongConverter.convert(id));
     }

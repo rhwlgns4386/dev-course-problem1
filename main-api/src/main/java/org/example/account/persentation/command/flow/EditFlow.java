@@ -7,8 +7,9 @@ import org.example.boards.presentation.command.ValidationLongConverter;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.Response;
+import org.example.global.ExceptionBoxCommandFlow;
 
-public class EditFlow extends CommandFlow<Command> {
+public class EditFlow extends ExceptionBoxCommandFlow<Command> {
 
     private final UserController controller;
 
@@ -18,7 +19,7 @@ public class EditFlow extends CommandFlow<Command> {
     }
 
     @Override
-    public void execute(Request request) {
+    public void doAfter(Request request) {
         Long id = ValidationLongConverter.convert(request.getParameter("accountId"));
         UserInfoDto userInfoDto = controller.readUpdateInfo();
         controller.edit(id,userInfoDto);

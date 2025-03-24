@@ -6,9 +6,10 @@ import org.example.boards.presentation.controller.BoardController;
 import org.example.cli.CommandFlow;
 import org.example.dispatcher.dto.Request;
 import org.example.dispatcher.dto.Response;
+import org.example.global.ExceptionBoxCommandFlow;
 import org.example.global.exception.InvalidParamException;
 
-public class EditFlow extends CommandFlow<BoardCommand> {
+public class EditFlow extends ExceptionBoxCommandFlow<BoardCommand> {
 
     private final BoardController controller;
 
@@ -18,15 +19,11 @@ public class EditFlow extends CommandFlow<BoardCommand> {
     }
 
     @Override
-    public void execute(Request request) {
+    public void doAfter(Request request) {
         String boardId = request.getParameter("boardId");
-        try{
-            long id = ValidationLongConverter.convert(boardId);
-            controller.containId(id);
-            String title = controller.readBoardName();
-            controller.edit(id, title);
-        }catch (IllegalArgumentException e){
-            throw new InvalidParamException("파라미터가 잘못 되었습니다.");
-        }
+        long id = ValidationLongConverter.convert(boardId);
+        controller.containId(id);
+        String title = controller.readBoardName();
+        controller.edit(id, title);
     }
 }
